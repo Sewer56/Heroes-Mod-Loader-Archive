@@ -89,21 +89,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="libSonicHeroes\SonicHeroes_ASMInjections.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Controller.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Form_FakeTransparentOverlay.cs">
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\Forms\SonicHeroes_Form_FakeTransparentOverlay.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Form_FakeTransparentOverlay.cs</Link>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="libSonicHeroes\SonicHeroes_Form_FakeTransparentOverlay.Designer.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Functions.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Hooking.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Miscallenous.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Networking.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Overlay.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Process.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Structs.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_UsefulMethods.cs" />
-    <Compile Include="libSonicHeroes\SonicHeroes_Variables.cs" />
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\Forms\SonicHeroes_Form_FakeTransparentOverlay.Designer.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Form_FakeTransparentOverlay.Designer.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_ASMInjections.cs">
+      <Link>libSonicHeroesII\SonicHeroes_ASMInjections.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Controller.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Controller.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Functions.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Functions.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Hooking.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Hooking.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Miscallenous.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Miscallenous.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Networking.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Networking.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Overlay.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Overlay.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Process.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Process.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Structs.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Structs.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_UsefulMethods.cs">
+      <Link>libSonicHeroesII\SonicHeroes_UsefulMethods.cs</Link>
+    </Compile>
+    <Compile Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\SonicHeroes_Variables.cs">
+      <Link>libSonicHeroesII\SonicHeroes_Variables.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -112,7 +137,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="libSonicHeroes\SonicHeroes_Form_FakeTransparentOverlay.resx" />
+    <EmbeddedResource Include="D:\Projects\SonicHackingStuff\HeroesHAX\HeroesInjectionTest\libSonicHeroes\libSonicHeroes\Forms\SonicHeroes_Form_FakeTransparentOverlay.resx">
+      <Link>libSonicHeroesII\SonicHeroes_Form_FakeTransparentOverlay.resx</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="../packages/DllExport.1.5.2/tools/net.r_eg.DllExport.targets" Condition="Exists('../packages/DllExport.1.5.2/tools/net.r_eg.DllExport.targets')" />
