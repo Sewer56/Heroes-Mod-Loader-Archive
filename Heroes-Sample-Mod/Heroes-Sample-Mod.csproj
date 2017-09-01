@@ -48,7 +48,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>D:\Projects\SonicHackingStuff\SonicHeroesGame\mods\</OutputPath>
+    <OutputPath>D:\Projects\SonicHackingStuff\SonicHeroesGame\Mod-Loader-Mods\Heroes-Mod-Loader-Direct2D-Sample\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
