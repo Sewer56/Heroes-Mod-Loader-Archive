@@ -168,7 +168,7 @@ namespace TestLibrary
                     new SharpDX.Mathematics.Interop.RawRectangleF
                     (
                         (int)Drawing_Properties.Rectangle_Menu_DirectX.Left + (int)Drawing_Properties.Line_Spacing, // Left Edge | Make Space Equal to Line Spacing
-                        (int)Drawing_Properties.Rectangle_Menu_DirectX.Top + ((int)Drawing_Properties.Line_Spacing * x) + ((int)Drawing_Properties.Line_Height * x), // Top Edge 
+                        (int)Drawing_Properties.Rectangle_Menu_DirectX.Top + ((int)Drawing_Properties.Line_Spacing) + ((int)Drawing_Properties.Line_Height * x), // Top Edge 
                         float.PositiveInfinity, // Right Edge | No Text Wrap
                         float.PositiveInfinity // Bottom Edge | No Text Wrap
                     ),
@@ -252,8 +252,8 @@ namespace TestLibrary
             }
 
             // Get Height of Rectangle
-            float Rectangle_Background_Height = All_Text_Layouts[0].Metrics.Height;
-            for (int x = 1; x < All_Text_Layouts.Length; x++) { Rectangle_Background_Height += All_Text_Layouts[x].Metrics.Height; Rectangle_Background_Height += (Drawing_Properties.Line_Spacing); }
+            float Rectangle_Background_Height = (Drawing_Properties.Line_Spacing * 2.0F);
+            for (int x = 0; x < All_Text_Layouts.Length; x++) { Rectangle_Background_Height += All_Text_Layouts[x].Metrics.Height; }
 
             // Make Rectangle Bigger (Styling)
             Rectangle_Background_Width += (Drawing_Properties.Line_Spacing * 2);
