@@ -103,15 +103,19 @@ namespace HeroesModLoaderConfig
             {
                 case 0:
                     Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Stock), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Stock), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
                     break;
                 case 1:
                     Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Borderless), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Borderless), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
                     break;
                 case 2:
                     Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
                     break;
                 case 3:
                     Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable_Borderless), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable_Borderless), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
                     break;
             }
         }
