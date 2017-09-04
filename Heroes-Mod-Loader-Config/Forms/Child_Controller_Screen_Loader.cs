@@ -270,10 +270,15 @@ namespace HeroesModLoaderConfig
         /// <param name="e"></param>
         private void Controller_Screen_Loader_Enter(object sender, EventArgs e)
         {
-            try { Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Load_Controller_Configuration(); Load_Controller_Settings_Into_Control_Text(); } catch { } // Exception FirstTimeShownException 
-
-            RefreshControllerThread = new Thread(() => UpdateAnalogueSticks());
-            RefreshControllerThread.Start();
+            if (Program.Controller_Handle.PlayerControllers.Count == 0)
+            {
+                try { Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Load_Controller_Configuration(); Load_Controller_Settings_Into_Control_Text(); } catch { } // Exception FirstTimeShownException 
+            }
+            else
+            {
+                RefreshControllerThread = new Thread(() => UpdateAnalogueSticks());
+                RefreshControllerThread.Start();
+            }
         }
 
 
@@ -296,6 +301,5 @@ namespace HeroesModLoaderConfig
             /// Select first item if available.
             if (TinyUI_ComboBoxSmall_CurrentController.Items.Count > 0) { TinyUI_ComboBoxSmall_CurrentController.SelectedIndex = 0; try { Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Load_Controller_Configuration(); Load_Controller_Settings_Into_Control_Text(); } catch { } }
         }
-
     }
 }

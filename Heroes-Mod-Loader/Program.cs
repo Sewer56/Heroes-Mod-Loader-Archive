@@ -10,6 +10,7 @@ using System.Text;
 using System.Net.Sockets;
 using SonicHeroes.Networking;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace HeroesInjectionTest
 {
@@ -26,9 +27,12 @@ namespace HeroesInjectionTest
         /// 
         public static Process SonicHeroesEXE; // This process will hold a handle to the Sonic Heroes Executable.        
         public static List<IntPtr> ModuleAddressesEXE = new List<IntPtr>(); // Addresses of all injected modules.
-        public static string SonicHeroes_Directory; // The directory of the mod loader and game.
-        public static string SonicHeroes_Backup_Directory; // The directory of backup game files.
+        public static string Executable_Path; // The path of the game executable.
+        public static string Root_Directory; // The directory of the game root.
+        public static string Mod_Loader_Directory; // The directory of the mod loader.
+        public static string Mod_Loader_Backup_Directory; // The directory of backup game files.
         public static List<string> SonicHeroes_Newly_Added_Files = new List<string>(); // New Files Added by the Mod Loader.
+        public static string[] Library_Directories; // Stores an array of directories of currently loaded mods.
 
         ///
         /// Additional Addon Modules
@@ -53,77 +57,57 @@ namespace HeroesInjectionTest
             ConsoleX_WriteLine_Center("-------------------------");
             ConsoleX_WriteLine_Center("α version\n");
 
-            // Define a new host to which we will be sending information to.
-            Mod_Loader_Server.SetupServer(IPAddress.Loopback);
-            Mod_Loader_Server.ProcessBytesMethod += ProcessData;
-
-            ConsoleX_WriteLine_Center("Server | Running!");
-            ConsoleX_WriteLine_Center("Waiting For Game!\n");
-
-            SonicHeroes_Directory = AppDomain.CurrentDomain.BaseDirectory; // Main directory for Sonic Heroes
-            SonicHeroes_Backup_Directory = AppDomain.CurrentDomain.BaseDirectory + @"Mod-Loader-Backup\"; // Backup directory for Sonic Heroes
+            Setup_Server(); // Starts up the Mod Loader Server.
+            Setup_Directories(); // Sets up the directories to be used by the mod loader.
             Restore_Backup_Files(); // Restores any files if present in backup folder.
 
             // Retrieve the current enabled list of mods.
-            string[] Library_Directories = File.ReadAllLines(SonicHeroes_Directory + "\\Mod-Loader-Config\\EnabledMods.txt");
-
+            Library_Directories = File.ReadAllLines(Mod_Loader_Directory + "\\Mod-Loader-Config\\Enabled_Mods.txt");
             Console.WriteLine(GetCurrentTime() + "Modifications Found: " + Library_Directories.Length);
 
-            // Load each mod one by one.
-            for (int x = 0; x < Library_Directories.Length; x++)
-            {
-                // Copy Data/Files over as necessary.
-                if (Directory.Exists(SonicHeroes_Directory + "\\Mod-Loader-Mods\\" + Library_Directories[x] + @"\root"))
-                {
-                    Console.WriteLine(GetCurrentTime() + "Loading Mod | File Replacement: " + Library_Directories[x]);
+            Console.WriteLine(GetCurrentTime() + "Committing File Replacements! Kapow! | " + Root_Directory);
+            Commit_File_Replacements();
+            Executable_Path = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"Mod-Loader-Config\Executable_Path.txt"); // Main directory for Sonic Heroes
 
-                    // Set up Mod Directory Properties
-                    string Mod_Directory = SonicHeroes_Directory + "Mod-Loader-Mods\\" + Library_Directories[x] + @"\root\";
-
-                    // Get all Sonic Heroes Mod Files
-                    DirectoryInfo Heroes_Mod_Directory_Info = new DirectoryInfo(Mod_Directory);
-                    FileInfo[] Heroes_Mod_All_Files_List = Heroes_Mod_Directory_Info.EnumerateFiles("*.*", System.IO.SearchOption.AllDirectories).ToArray();
-
-                    for (int z = 0; z < Heroes_Mod_All_Files_List.Length; z++)
-                    {
-                        // Relative File Location
-                        string Relative_File_Location = Heroes_Mod_All_Files_List[z].FullName.Substring(Mod_Directory.Length);
-
-                        // Generate File Backup
-                        Directory.CreateDirectory(SonicHeroes_Backup_Directory + Path.GetDirectoryName(Relative_File_Location));
-                        if (!File.Exists(SonicHeroes_Backup_Directory + Relative_File_Location) && File.Exists(SonicHeroes_Directory + Relative_File_Location))
-                        {
-                            File.Copy(SonicHeroes_Directory + Relative_File_Location, SonicHeroes_Backup_Directory + Relative_File_Location, false);
-                        }
-                        else
-                        {
-                            SonicHeroes_Newly_Added_Files.Add(Relative_File_Location);
-                        }
-
-                        // Copy the file if it doesn't exist ^^
-
-                        // Move New File
-                        File.Copy(Mod_Directory + Relative_File_Location, SonicHeroes_Directory + Relative_File_Location, true);
-                    }
-                }
-            }
-
-            // Dump all newly added files.
-            File.WriteAllLines(SonicHeroes_Backup_Directory + "Session-Files-Added.txt", SonicHeroes_Newly_Added_Files);
+            // Leave a text file with the path of the mod loader libraries with the executable.
+            File.WriteAllText(Path.GetDirectoryName(Executable_Path) + "\\Mod_Loader_Libraries.txt", Path.GetDirectoryName(Mod_Loader_Directory));
 
             // Start the game.
-            SonicHeroesEXE = Process.Start(File.ReadAllText("Mod-Loader-Config/ExecutableName.txt"));
+            Console.WriteLine(GetCurrentTime() + "Target Locked! | " + Executable_Path);
+            ProcessStartInfo Heroes_Start_Info = new ProcessStartInfo(); // Sonic Heroes will crash if not launched from executable directory. BAD PROGRAMMING SANIC TEEM, BAD PROGRAMMING.
+            Heroes_Start_Info.WorkingDirectory = Path.GetDirectoryName(Executable_Path); // Set Working Directory for TSonic_Win.exe
+            Heroes_Start_Info.FileName = Executable_Path;
+            SonicHeroesEXE = Process.Start(Heroes_Start_Info);
             SonicHeroesEXE.SuspendProcess(); // Suspend the game.
             SonicHeroesEXE.EnableRaisingEvents = true; // Allow events to be raised.
             SonicHeroesEXE.Exited += Shutdown; // Shutdown with the game.
 
+            // Time for DLL injection, let's do it one by one ;).
+            Commit_DLL_Injections(); 
+
+            SonicHeroesEXE.ResumeProcess(); // Resume the game.
+            Console.WriteLine(GetCurrentTime() + "All Systems Operational! | Loading Success!");
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(Shutdown); // On process exit, run one last thing :)
+            Console.CancelKeyPress += (sender, eArgs) =>  { Console_Quit_Event.Set();  eArgs.Cancel = true; };
+            Console_Quit_Event.WaitOne(); // Wait until user presses quit keyboard combination.
+            Console.ReadLine(); // Wait for user.
+        }
+
+
+        ///////////////////////
+        /////////////////////// MOD LOADER CORE SECTION
+        ///////////////////////
+
+        /// Handle the mod loader individual DLL injections.
+        static void Commit_DLL_Injections()
+        {
             // Load each mod one by one.
             for (int x = 0; x < Library_Directories.Length; x++)
             {
-                if (File.Exists(SonicHeroes_Directory + "Mod-Loader-Mods\\" + Library_Directories[x] + @"\main.dll"))
+                if (File.Exists(Mod_Loader_Directory + "Mod-Loader-Mods\\" + Library_Directories[x] + @"\main.dll"))
                 {
                     Console.WriteLine(GetCurrentTime() + "Loading Mod | DLL Injection: " + Library_Directories[x]);
-                    string DLL_Path = SonicHeroes_Directory + "Mod-Loader-Mods\\" + Library_Directories[x] + @"\main.dll";
+                    string DLL_Path = Mod_Loader_Directory + "Mod-Loader-Mods\\" + Library_Directories[x] + @"\main.dll";
 
                     // In order to get function address we must load library in our process and extract it as needed, GetLibraryAddress handles that.
                     SonicHeroesEXE.LoadLibrary(DLL_Path); // Load the library into the process!
@@ -137,17 +121,74 @@ namespace HeroesInjectionTest
                     Console.WriteLine(GetCurrentTime() + "Successfully Injected: " + Library_Directories[x]);
                 }
             }
-
-            SonicHeroesEXE.ResumeProcess(); // Resume the game.
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler(Shutdown); // On process exit, run one last thing :)
-            Console.CancelKeyPress += (sender, eArgs) =>  { Console_Quit_Event.Set();  eArgs.Cancel = true; };
-            Console_Quit_Event.WaitOne(); // Wait until user presses quit keyboard combination.
-            Console.ReadLine(); // Wait for user.
         }
 
-        /// 
-        /// Methods!
-        /// 
+        /// Handle the mod loader file replacements
+        static void Commit_File_Replacements()
+        {
+            // Load each mod one by one.
+            for (int x = 0; x < Library_Directories.Length; x++)
+            {
+                // Copy Data/Files over as necessary.
+                if (Directory.Exists(Mod_Loader_Directory + "\\Mod-Loader-Mods\\" + Library_Directories[x] + @"\root"))
+                {
+                    Console.WriteLine(GetCurrentTime() + "Loading Mod | File Replacement: " + Library_Directories[x]);
+
+                    // Set up Mod Directory Properties
+                    string Mod_Directory = Mod_Loader_Directory + "Mod-Loader-Mods\\" + Library_Directories[x] + @"\root\";
+
+                    // Get all Sonic Heroes Mod Files
+                    DirectoryInfo Heroes_Mod_Directory_Info = new DirectoryInfo(Mod_Directory);
+                    FileInfo[] Heroes_Mod_All_Files_List = Heroes_Mod_Directory_Info.EnumerateFiles("*.*", System.IO.SearchOption.AllDirectories).ToArray();
+
+                    for (int z = 0; z < Heroes_Mod_All_Files_List.Length; z++)
+                    {
+                        // Relative File Location
+                        string Relative_File_Location = Heroes_Mod_All_Files_List[z].FullName.Substring(Mod_Directory.Length);
+
+                        // Generate File Backup
+                        Directory.CreateDirectory(Mod_Loader_Backup_Directory + Path.GetDirectoryName(Relative_File_Location));
+                        if (!File.Exists(Mod_Loader_Backup_Directory + Relative_File_Location) && File.Exists(Root_Directory + Relative_File_Location))
+                        {
+                            // If it is a file replacement, commit a backup of the file.
+                            File.Copy(Root_Directory + Relative_File_Location, Mod_Loader_Backup_Directory + Relative_File_Location, false);
+                        }
+                        else
+                        {
+                            SonicHeroes_Newly_Added_Files.Add(Relative_File_Location); // Otherwise add the file to the overall list of added files (pending removal on next startup/game shutdown).
+                        }
+
+                        // Copy the file if it doesn't exist ^^
+
+                        // Copy the new file from the mod to replace the original.
+                        File.Copy(Mod_Directory + Relative_File_Location, Root_Directory + Relative_File_Location, true);
+                    }
+                }
+            }
+
+            // Dump all newly added files.
+            File.WriteAllLines(Mod_Loader_Backup_Directory + "Session-Files-Added.txt", SonicHeroes_Newly_Added_Files);
+        }
+
+        /// Reads the directories to be used by the mod loader from the text files.
+        static void Setup_Directories()
+        {
+            Root_Directory = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"Mod-Loader-Config\Root_Directory.txt") + "\\"; // Main directory for Sonic Heroes
+            Mod_Loader_Directory = AppDomain.CurrentDomain.BaseDirectory; // The directory containing the mod loader itself.
+            Mod_Loader_Backup_Directory = AppDomain.CurrentDomain.BaseDirectory + @"Mod-Loader-Backup\"; // Backup directory for Sonic Heroes
+            Executable_Path = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"Mod-Loader-Config\Executable_Path.txt"); // Main directory for Sonic Heroes
+            if (Executable_Path == "null") { MessageBox.Show("The directories containing the game and the game data are not set, please run the configuration tool."); Environment.Exit(0); }
+            if (Root_Directory == "null") { MessageBox.Show("The directories containing the game and the game data are not set, please run the configuration tool."); Environment.Exit(0); }
+        }
+
+        // Starts the local mod loader server.
+        static void Setup_Server()
+        {
+            // Define a new host to which we will be sending information to.
+            Mod_Loader_Server.SetupServer(IPAddress.Loopback);
+            Mod_Loader_Server.ProcessBytesMethod += ProcessData;
+            ConsoleX_WriteLine_Center("Server | Running!");
+        }
 
         ///// If the game exits, we might aswell.
         static void Shutdown(object sender, EventArgs e)
@@ -167,32 +208,33 @@ namespace HeroesInjectionTest
         {
             // :)
             Console.WriteLine(GetCurrentTime() + "Mod Loader | Restoring Original Files");
+            File.Delete(Path.GetDirectoryName(Executable_Path) + "\\Mod_Loader_Libraries.txt");
 
             // Restore Old Files
             // Get all Sonic Heroes Mod Files
-            DirectoryInfo Heroes_Backup_Directory_Info = new DirectoryInfo(SonicHeroes_Backup_Directory);
+            DirectoryInfo Heroes_Backup_Directory_Info = new DirectoryInfo(Mod_Loader_Backup_Directory);
             FileInfo[] Heroes_Backup_All_Files_List = Heroes_Backup_Directory_Info.EnumerateFiles("*.*", System.IO.SearchOption.AllDirectories).ToArray();
 
             for (int z = 0; z < Heroes_Backup_All_Files_List.Length; z++)
             {
                 // Relative File Location
-                string Relative_File_Location = Heroes_Backup_All_Files_List[z].FullName.Substring(SonicHeroes_Backup_Directory.Length);
+                string Relative_File_Location = Heroes_Backup_All_Files_List[z].FullName.Substring(Mod_Loader_Backup_Directory.Length);
 
                 // Restore File Backup
-                Directory.CreateDirectory(SonicHeroes_Directory + Path.GetDirectoryName(Relative_File_Location));
-                if (File.Exists(SonicHeroes_Directory + Relative_File_Location))
+                Directory.CreateDirectory(Root_Directory + Path.GetDirectoryName(Relative_File_Location));
+                if (File.Exists(Root_Directory + Relative_File_Location))
                 {
-                    File.Delete(SonicHeroes_Directory + Relative_File_Location);
-                    File.Move(SonicHeroes_Backup_Directory + Relative_File_Location, SonicHeroes_Directory + Relative_File_Location);
+                    File.Delete(Root_Directory + Relative_File_Location);
+                    File.Move(Mod_Loader_Backup_Directory + Relative_File_Location, Root_Directory + Relative_File_Location);
                 }
             }
 
             // Remove any newly added files to restore game to original state.
             try
             {
-                string[] SonicHeroes_Newly_Added_Files_Temp = File.ReadAllLines(SonicHeroes_Backup_Directory + "Session-Files-Added.txt");
-                foreach (string FilePath in SonicHeroes_Newly_Added_Files_Temp) { File.Delete(SonicHeroes_Directory + FilePath); }
-                File.Delete(SonicHeroes_Backup_Directory + "Session-Files-Added.txt");
+                string[] SonicHeroes_Newly_Added_Files_Temp = File.ReadAllLines(Mod_Loader_Backup_Directory + "Session-Files-Added.txt");
+                foreach (string FilePath in SonicHeroes_Newly_Added_Files_Temp) { File.Delete(Root_Directory + FilePath); }
+                File.Delete(Mod_Loader_Backup_Directory + "Session-Files-Added.txt");
             }
             catch { }
 

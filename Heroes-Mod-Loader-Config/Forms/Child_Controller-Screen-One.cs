@@ -69,14 +69,14 @@ namespace HeroesModLoaderConfig
         private void ControllerScreen_Leave(object sender, EventArgs e)
         {
             // Try-catch is used in the case user goes to another tab without setting a button on one of the controls.
-            try { Program.ConfigFile.ControllerOne[0] = Convert.ToByte(Btn_StartPause.OwnerDrawText.Substring(Btn_StartPause.OwnerDrawText.IndexOf(" "))); } catch { }
-            try { Program.ConfigFile.ControllerOne[1] = Convert.ToByte(Btn_Jump.OwnerDrawText.Substring(Btn_Jump.OwnerDrawText.IndexOf(" "))); } catch { }
-            try { Program.ConfigFile.ControllerOne[2] = Convert.ToByte(Btn_Action.OwnerDrawText.Substring(Btn_Action.OwnerDrawText.IndexOf(" "))); } catch { }
-            try { Program.ConfigFile.ControllerOne[3] = Convert.ToByte(Btn_FormationR.OwnerDrawText.Substring(Btn_FormationR.OwnerDrawText.IndexOf(" ")));} catch { }
-            try { Program.ConfigFile.ControllerOne[4] = Convert.ToByte(Btn_FormationL.OwnerDrawText.Substring(Btn_FormationL.OwnerDrawText.IndexOf(" ")));} catch { }
-            try { Program.ConfigFile.ControllerOne[5] = Convert.ToByte(Btn_TeamBlast.OwnerDrawText.Substring(Btn_TeamBlast.OwnerDrawText.IndexOf(" ")));} catch { }
-            try { Program.ConfigFile.ControllerOne[6] = Convert.ToByte(Btn_CameraR.OwnerDrawText.Substring(Btn_CameraR.OwnerDrawText.IndexOf(" ")));} catch { }
-            try { Program.ConfigFile.ControllerOne[7] = Convert.ToByte(Btn_CameraL.OwnerDrawText.Substring(Btn_CameraL.OwnerDrawText.IndexOf(" ")));} catch { }
+            try { Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[0] = Convert.ToByte(Btn_StartPause.OwnerDrawText.Substring(Btn_StartPause.OwnerDrawText.IndexOf(" "))); } catch { }
+            try { Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[1] = Convert.ToByte(Btn_Jump.OwnerDrawText.Substring(Btn_Jump.OwnerDrawText.IndexOf(" "))); } catch { }
+            try { Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[2] = Convert.ToByte(Btn_Action.OwnerDrawText.Substring(Btn_Action.OwnerDrawText.IndexOf(" "))); } catch { }
+            try { Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[3] = Convert.ToByte(Btn_FormationR.OwnerDrawText.Substring(Btn_FormationR.OwnerDrawText.IndexOf(" ")));} catch { }
+            try { Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[4] = Convert.ToByte(Btn_FormationL.OwnerDrawText.Substring(Btn_FormationL.OwnerDrawText.IndexOf(" ")));} catch { }
+            try { Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[5] = Convert.ToByte(Btn_TeamBlast.OwnerDrawText.Substring(Btn_TeamBlast.OwnerDrawText.IndexOf(" ")));} catch { }
+            try { Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[6] = Convert.ToByte(Btn_CameraR.OwnerDrawText.Substring(Btn_CameraR.OwnerDrawText.IndexOf(" ")));} catch { }
+            try { Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[7] = Convert.ToByte(Btn_CameraL.OwnerDrawText.Substring(Btn_CameraL.OwnerDrawText.IndexOf(" ")));} catch { }
         }
 
         /// <summary>
@@ -86,14 +86,14 @@ namespace HeroesModLoaderConfig
         /// <param name="e"></param>
         private void ControllerScreen_Enter(object sender, EventArgs e)
         { 
-            Btn_StartPause.Text = "Button " + Program.ConfigFile.ControllerOne[0];
-            Btn_Jump.Text = "Button " + Program.ConfigFile.ControllerOne[1];
-            Btn_Action.Text = "Button " + Program.ConfigFile.ControllerOne[2];
-            Btn_FormationR.Text = "Button " + Program.ConfigFile.ControllerOne[3];
-            Btn_FormationL.Text = "Button " + Program.ConfigFile.ControllerOne[4];
-            Btn_TeamBlast.Text = "Button " + Program.ConfigFile.ControllerOne[5];
-            Btn_CameraR.Text = "Button " + Program.ConfigFile.ControllerOne[6];
-            Btn_CameraL.Text = "Button " + Program.ConfigFile.ControllerOne[7];
+            Btn_StartPause.Text = "Button " + Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[0];
+            Btn_Jump.Text = "Button " + Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[1];
+            Btn_Action.Text = "Button " + Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[2];
+            Btn_FormationR.Text = "Button " + Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[3];
+            Btn_FormationL.Text = "Button " + Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[4];
+            Btn_TeamBlast.Text = "Button " + Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[5];
+            Btn_CameraR.Text = "Button " + Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[6];
+            Btn_CameraL.Text = "Button " + Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ControllerOne[7];
         }
         
     }

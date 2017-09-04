@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\SonicHeroesGame\</OutputPath>
+    <OutputPath>G:\Desktop\Heroes_Mod_Loader\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -47,7 +47,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>..\..\..\SonicHeroesGame\</OutputPath>
+    <OutputPath>G:\Desktop\Heroes_Mod_Loader\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -212,6 +212,7 @@
     <Compile Include="Forms\Child_About-Screen.designer.cs">
       <DependentUpon>Child_About-Screen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sonic_Heroes_Program.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -302,15 +303,17 @@
     <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Github_Alt.png" />
     <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_SSRG.png" />
     <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Discord.png" />
-    <Content Include="Mod-Loader-Libraries\Null.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Mod-Loader-Config\Fonts\LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Mod-Loader-Config\Images\square-targeting-interface-symbol2.png" />
     <None Include="Mod-Loader-Config\Images\SettingsIcon_HalogenOS_Sewer56lol.png" />
     <None Include="Mod-Loader-Config\Images\PaintBrushIcon_58x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mod-Loader-Backup\" />
+    <Folder Include="Mod-Loader-Libraries\" />
+    <Folder Include="Mod-Loader-Mods\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

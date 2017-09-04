@@ -28,21 +28,19 @@ namespace HeroesModLoaderConfig
         /// <param name="e"></param>
         private void TweaksScreen_Shown(object sender, EventArgs e)
         {
-            TinyUI_ComboBoxSmall_BGM.SelectedIndex = Program.ConfigFile.BGMToggle;
-            TinyUI_ComboBoxSmall_SEVoice.SelectedIndex = Program.ConfigFile.SFXToggle;
-            TinyUI_TrackBar_BGM.Value = Program.ConfigFile.BGMVolume;
-            TinyUI_TrackBar_SEVoice.Value = Program.ConfigFile.SFXVolume;
-
-
+            TinyUI_ComboBoxSmall_BGM.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.BGMToggle;
+            TinyUI_ComboBoxSmall_SEVoice.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.SFXToggle;
+            TinyUI_TrackBar_BGM.Value = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.BGMVolume;
+            TinyUI_TrackBar_SEVoice.Value = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.SFXVolume;
         }
 
         private void TweaksScreen_Leave(object sender, EventArgs e)
         {
             
-            Program.ConfigFile.BGMToggle = (byte)TinyUI_ComboBoxSmall_BGM.SelectedIndex;
-            Program.ConfigFile.SFXToggle = (byte)TinyUI_ComboBoxSmall_SEVoice.SelectedIndex;
-            Program.ConfigFile.BGMVolume = (byte)TinyUI_TrackBar_BGM.Value;
-            Program.ConfigFile.SFXVolume = (byte)TinyUI_TrackBar_SEVoice.Value;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.BGMToggle = (byte)TinyUI_ComboBoxSmall_BGM.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.SFXToggle = (byte)TinyUI_ComboBoxSmall_SEVoice.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.BGMVolume = (byte)TinyUI_TrackBar_BGM.Value;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.SFXVolume = (byte)TinyUI_TrackBar_SEVoice.Value;
         }
 
         private void TinyUI_TrackBar_SEVoice_ValueChanged(object sender, EventArgs e)

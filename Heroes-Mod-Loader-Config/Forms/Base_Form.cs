@@ -98,6 +98,21 @@ namespace HeroesModLoaderConfig
             ThemeMethods.AutoLoadCurrentTheme();
             // Shows the default menu.
             Show_Default_Menu();
+            // If the game is not Sonic Heroes, hide all irrelevant menus.
+            if (!Program.Game_Is_Sonic_Heroes) { Hide_NonSonicHeroes(); }
+        }
+
+        /// <summary>
+        /// Hides all of the non-Sonic-Heroes menus if the game is not Sonic Heroes.
+        /// </summary>
+        public void Hide_NonSonicHeroes()
+        {
+            SideBtn_Tweaks.Visible = false;
+            SideBtn_TweaksII.Visible = false;
+            SideBtn_ControllerOne.Visible = false;
+            SideBtn_ControllerTwo.Visible = false;
+            SideBtn_LauncherSeparator_II.Visible = false;
+            lbl_ActionBar_BottomRight.Text = "Non Sonic-Heroes/Generic Game Mode!";
         }
 
         /// <summary>
@@ -244,7 +259,7 @@ namespace HeroesModLoaderConfig
         }
 
 
-        private void SideBtn_MainScreen_Click(object sender, EventArgs e)
+        public void SideBtn_MainScreen_Click(object sender, EventArgs e)
         {
             TinyUI_TopLabel_PageTitle.Text = "Main Menu";
             SetupNewSwappableForm();

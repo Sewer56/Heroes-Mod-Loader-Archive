@@ -35,19 +35,19 @@ namespace HeroesModLoaderConfig
         /// <param name="e"></param>
         private void MainScreen_Shown(object sender, EventArgs e)
         {
-            int Width = BitConverter.ToInt32(Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_1280_1024);
-            int Height = BitConverter.ToInt32(Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_1280_1024);
+            int Width = BitConverter.ToInt32(Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_1280_1024);
+            int Height = BitConverter.ToInt32(Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_1280_1024);
             TinyUI_TxtBoxSmaller_ResolutionWidth.Text = Width + "x" + Height;
-            TinyUI_ComboBoxSmall_AnisotropicFilter.SelectedIndex = Program.ConfigFile.AnisotropicFiltering;
-            TinyUI_ComboBoxSmall_FogEmulation.SelectedIndex = Program.ConfigFile.FogEmulation;
-            TinyUI_ComboBoxSmall_SoftShadows.SelectedIndex = Program.ConfigFile.SoftShadows;
-            TinyUI_ComboBoxSmall_Fullscreen.SelectedIndex = Program.ConfigFile.FullScreen;
-            TinyUI_ComboBoxSmall_Language.SelectedIndex = Program.ConfigFile.Language;
-            TinyUI_ComboBoxSmall_ClippingSetting.SelectedIndex = Program.ConfigFile.ClipRange;
-            TinyUI_ComboBoxSmall_FrameRate.SelectedIndex = Program.ConfigFile.FrameRate;
-            TinyUI_ComboBoxSmall_SurroundSound.SelectedIndex = Program.ConfigFile.SurroundSound;
+            TinyUI_ComboBoxSmall_AnisotropicFilter.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.AnisotropicFiltering;
+            TinyUI_ComboBoxSmall_FogEmulation.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.FogEmulation;
+            TinyUI_ComboBoxSmall_SoftShadows.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.SoftShadows;
+            TinyUI_ComboBoxSmall_Fullscreen.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.FullScreen;
+            TinyUI_ComboBoxSmall_Language.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.Language;
+            TinyUI_ComboBoxSmall_ClippingSetting.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ClipRange;
+            TinyUI_ComboBoxSmall_FrameRate.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.FrameRate;
+            TinyUI_ComboBoxSmall_SurroundSound.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.SurroundSound;
 
-            switch (BitConverter.ToInt32(Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style))
+            switch (BitConverter.ToInt32(Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style))
             {
                 case (Int32)SonicHeroesVariables.WINAPI_BorderStyles.Stock:
                     TinyUI_ComboBoxSmall_BorderStyle.SelectedIndex = 0;
@@ -75,10 +75,10 @@ namespace HeroesModLoaderConfig
             {
                 int Width = Convert.ToInt32(TinyUI_TxtBoxSmaller_ResolutionWidth.Text.Substring(0, TinyUI_TxtBoxSmaller_ResolutionWidth.Text.IndexOf("x")));
                 int Height = Convert.ToInt32(TinyUI_TxtBoxSmaller_ResolutionWidth.Text.Substring(TinyUI_TxtBoxSmaller_ResolutionWidth.Text.IndexOf("x") + 1));
-                Buffer.BlockCopy(BitConverter.GetBytes(Width), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_1280_1024, 4);
-                Buffer.BlockCopy(BitConverter.GetBytes(Width), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_FullScreen_1280_1024, 4);
-                Buffer.BlockCopy(BitConverter.GetBytes(Height), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_1280_1024, 4);
-                Buffer.BlockCopy(BitConverter.GetBytes(Height), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_FullScreen_1280_1024, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(Width), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_1280_1024, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(Width), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_FullScreen_1280_1024, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(Height), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_1280_1024, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(Height), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_FullScreen_1280_1024, 4);
             }
             catch { MessageBox.Show("Invalid Resolution! It has been reset to 1920x1080."); TinyUI_TxtBoxSmaller_ResolutionWidth.Text = "1920x1080"; }
         }
@@ -90,32 +90,32 @@ namespace HeroesModLoaderConfig
         /// <param name="e"></param>
         private void TweaksScreen_Leave(object sender, EventArgs e)
         {
-            Program.ConfigFile.AnisotropicFiltering = (byte)TinyUI_ComboBoxSmall_AnisotropicFilter.SelectedIndex;
-            Program.ConfigFile.FogEmulation = (byte)TinyUI_ComboBoxSmall_FogEmulation.SelectedIndex;
-            Program.ConfigFile.SoftShadows = (byte)TinyUI_ComboBoxSmall_SoftShadows.SelectedIndex;
-            Program.ConfigFile.FullScreen = (byte)TinyUI_ComboBoxSmall_Fullscreen.SelectedIndex;
-            Program.ConfigFile.ClipRange = (byte)TinyUI_ComboBoxSmall_ClippingSetting.SelectedIndex;
-            Program.ConfigFile.FrameRate = (byte)TinyUI_ComboBoxSmall_FrameRate.SelectedIndex;
-            Program.ConfigFile.Language = (byte)TinyUI_ComboBoxSmall_Language.SelectedIndex;
-            Program.ConfigFile.SurroundSound = (byte)TinyUI_ComboBoxSmall_SurroundSound.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.AnisotropicFiltering = (byte)TinyUI_ComboBoxSmall_AnisotropicFilter.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.FogEmulation = (byte)TinyUI_ComboBoxSmall_FogEmulation.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.SoftShadows = (byte)TinyUI_ComboBoxSmall_SoftShadows.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.FullScreen = (byte)TinyUI_ComboBoxSmall_Fullscreen.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.ClipRange = (byte)TinyUI_ComboBoxSmall_ClippingSetting.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.FrameRate = (byte)TinyUI_ComboBoxSmall_FrameRate.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.Language = (byte)TinyUI_ComboBoxSmall_Language.SelectedIndex;
+            Program.Sonic_Heroes_Specific_Stuff.ConfigFile.SurroundSound = (byte)TinyUI_ComboBoxSmall_SurroundSound.SelectedIndex;
 
             switch (TinyUI_ComboBoxSmall_BorderStyle.SelectedIndex)
             {
                 case 0:
-                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Stock), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
-                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Stock), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Stock), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Stock), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
                     break;
                 case 1:
-                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Borderless), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
-                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Borderless), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Borderless), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Borderless), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
                     break;
                 case 2:
-                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
-                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
                     break;
                 case 3:
-                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable_Borderless), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
-                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable_Borderless), 0, Program.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable_Borderless), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Window_Style, 4);
+                    Buffer.BlockCopy(BitConverter.GetBytes((Int32)SonicHeroesVariables.WINAPI_BorderStyles.Resizable_Borderless), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Adjust_Window_Rect_Style, 4);
                     break;
             }
         }

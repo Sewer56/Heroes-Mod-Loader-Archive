@@ -37,16 +37,16 @@ namespace HeroesModLoaderConfig
         private void Btn_SaveExit_Click(object sender, EventArgs e)
         {
             Save_Mod_Loader_Mod_List();
-            File.WriteAllBytes("Tsonic_win.exe", Program.SonicHeroesExecutable);
-            SonicHeroes_Miscallenous.Save_Configuration_File(Program.ConfigFile);
+            File.WriteAllBytes(Program.Executable_Path, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable);
+            SonicHeroes_Miscallenous.Save_Configuration_File(Program.Sonic_Heroes_Specific_Stuff.ConfigFile);
             Application.Exit();
         }
 
         private void Btn_Launch_Click(object sender, EventArgs e)
         {
             Save_Mod_Loader_Mod_List();
-            File.WriteAllBytes("Tsonic_win.exe", Program.SonicHeroesExecutable);
-            SonicHeroes_Miscallenous.Save_Configuration_File(Program.ConfigFile);
+            File.WriteAllBytes(Program.Executable_Path, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable);
+            SonicHeroes_Miscallenous.Save_Configuration_File(Program.Sonic_Heroes_Specific_Stuff.ConfigFile);
             Process.Start("HeroesModLoader.exe");
             Application.Exit();
         }
@@ -75,7 +75,7 @@ namespace HeroesModLoaderConfig
             }
 
             // Write out all enabled mods :)
-            File.WriteAllLines(Environment.CurrentDirectory + "\\Mod-Loader-Config\\EnabledMods.txt", Enabled_Mods_List);
+            File.WriteAllLines(Environment.CurrentDirectory + "\\Mod-Loader-Config\\Enabled_Mods.txt", Enabled_Mods_List);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace HeroesModLoaderConfig
             ListView_Mod_List.Items.Clear();
 
             // Dumps a list of enabled mods.
-            string[] Enabled_Mods_List = File.ReadAllLines(Environment.CurrentDirectory + "\\Mod-Loader-Config\\EnabledMods.txt");
+            string[] Enabled_Mods_List = File.ReadAllLines(Environment.CurrentDirectory + "\\Mod-Loader-Config\\Enabled_Mods.txt");
             string Mod_Loader_Mods_Location = AppDomain.CurrentDomain.BaseDirectory + "Mod-Loader-Mods"; // Enabled mod list.
 
             // Add the enabled mods first.
