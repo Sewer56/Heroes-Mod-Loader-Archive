@@ -37,16 +37,22 @@ namespace HeroesModLoaderConfig
         private void Btn_SaveExit_Click(object sender, EventArgs e)
         {
             Save_Mod_Loader_Mod_List();
-            File.WriteAllBytes(Program.Executable_Path, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable);
-            SonicHeroes_Miscallenous.Save_Configuration_File(Program.Sonic_Heroes_Specific_Stuff.ConfigFile);
+            if (Program.Game_Is_Sonic_Heroes)
+            {
+                File.WriteAllBytes(Program.Executable_Path, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable);
+                SonicHeroes_Miscallenous.Save_Configuration_File(Program.Sonic_Heroes_Specific_Stuff.ConfigFile);
+            }
             Application.Exit();
         }
 
         private void Btn_Launch_Click(object sender, EventArgs e)
         {
             Save_Mod_Loader_Mod_List();
-            File.WriteAllBytes(Program.Executable_Path, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable);
-            SonicHeroes_Miscallenous.Save_Configuration_File(Program.Sonic_Heroes_Specific_Stuff.ConfigFile);
+            if (Program.Game_Is_Sonic_Heroes)
+            {
+                File.WriteAllBytes(Program.Executable_Path, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable);
+                SonicHeroes_Miscallenous.Save_Configuration_File(Program.Sonic_Heroes_Specific_Stuff.ConfigFile);
+            }
             Process.Start("HeroesModLoader.exe");
             Application.Exit();
         }
