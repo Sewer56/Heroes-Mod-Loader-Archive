@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using SonicHeroes.Memory;
+using SonicHeroes.Controller;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Net.Sockets;
 using SonicHeroes.Networking;
 using System.Linq;
 using System.Windows.Forms;
+using static SonicHeroes.Controller.Sonic_Heroes_Joystick;
 
 namespace HeroesInjectionTest
 {
@@ -71,6 +73,7 @@ namespace HeroesInjectionTest
 
             // Leave a text file with the path of the mod loader libraries with the executable.
             File.WriteAllText(Path.GetDirectoryName(Executable_Path) + "\\Mod_Loader_Libraries.txt", Path.GetDirectoryName(Mod_Loader_Directory));
+            File.WriteAllText(Path.GetDirectoryName(Executable_Path) + "\\Mod_Loader_Config.txt", Path.GetDirectoryName(Mod_Loader_Directory));
 
             // Start the game.
             Console.WriteLine(GetCurrentTime() + "Target Locked! | " + Executable_Path);
@@ -209,7 +212,8 @@ namespace HeroesInjectionTest
             // :)
             Console.WriteLine(GetCurrentTime() + "Mod Loader | Restoring Original Files");
             File.Delete(Path.GetDirectoryName(Executable_Path) + "\\Mod_Loader_Libraries.txt");
-
+            File.Delete(Path.GetDirectoryName(Executable_Path) + "\\Mod_Loader_Config.txt");
+            
             // Restore Old Files
             // Get all Sonic Heroes Mod Files
             DirectoryInfo Heroes_Backup_Directory_Info = new DirectoryInfo(Mod_Loader_Backup_Directory);
@@ -329,8 +333,15 @@ namespace HeroesInjectionTest
         /// <param name="SocketX"></param>
         public static void Return_Controller_Status(Socket SocketX, int Controller_ID)
         {
-            byte[] Controller_Inputs_Serialized_II = Controller_Inputs_Serialized[Controller_ID];
-            SocketX.Send(Controller_Inputs_Serialized_II);
+            try
+            {
+                byte[] Controller_Inputs_Serialized_II = Controller_Inputs_Serialized[Controller_ID];
+                SocketX.Send(Controller_Inputs_Serialized_II);
+            }
+            catch
+            {
+                SocketX.Send(new byte[] { 0x00 }); // Reply with nothing
+            }
         }
 
         /// <summary>
