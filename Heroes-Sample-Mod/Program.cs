@@ -30,7 +30,7 @@ namespace TestLibrary
 
         // Settings
         const float Ring_Base_Speed = 2.0F; // Minimum speed at which the rings approach the player.
-        const float Distance_Speed_Increase = 0.01F; // 3% - The rings will approach the player faster by 3% of the distance of the ring to the player.
+        const float Distance_Speed_Increase = 0.01F; // 1% - The rings will approach the player faster by 1% of the distance of the ring to the player.
 
         /// <summary>
         /// Your program starts here!
