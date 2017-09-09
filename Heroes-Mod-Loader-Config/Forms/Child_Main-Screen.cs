@@ -339,7 +339,7 @@ namespace HeroesModLoaderConfig
             {
                 try
                 {
-                    // If mod name and version ma@itches, open the settings executable destined for that specific mod.
+                    // If mod name and version maitches, open the settings executable destined for that specific mod.
                     if ((Mod_Loader_Entries[x].Mod_Name == ListView_Mod_List.SelectedItems[0].SubItems[1].Text) && (Mod_Loader_Entries[x].Mod_Version == ListView_Mod_List.SelectedItems[0].SubItems[2].Text))
                     {
                         System.Diagnostics.Process.Start(Mod_Loader_Entries[x].Mod_Directory + "\\" + Mod_Loader_Entries[x].Options_ExecutableName);
@@ -347,7 +347,14 @@ namespace HeroesModLoaderConfig
                 }
                 catch
                 {
-                    if (!Error_Shown) { MessageBox.Show("Select an actual mod, dummy."); Error_Shown = true; }
+                    try
+                    {
+                        System.Diagnostics.Process.Start("notepad.exe", Mod_Loader_Entries[x].Mod_Directory + "\\" + Mod_Loader_Entries[x].Options_ExecutableName);
+                    }
+                    catch
+                    {
+                        if (!Error_Shown) { MessageBox.Show("Select an actual mod, dummy."); Error_Shown = true; }
+                    }
                 }
             }
         }
@@ -372,8 +379,8 @@ namespace HeroesModLoaderConfig
                     }
                     else
                     {
-                        BtnAlt_Options.BackColor = HSL_Invert(Program.BottomToolstrip.BackColor);
-                        BtnAlt_Options.Text = "N/A";
+                        BtnAlt_Options.BackColor = Program.BottomToolstrip.BackColor;
+                        BtnAlt_Options.Text = "Config";
                     }
                 }
             }
