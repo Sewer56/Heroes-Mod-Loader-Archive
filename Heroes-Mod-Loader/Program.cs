@@ -121,7 +121,8 @@ namespace HeroesInjectionTest
                     SonicHeroesEXE.SuspendProcess();
                     ModuleAddressesEXE.Add(LibraryAddress); // Add new module address to list of addresses (we can unload it when the game/loader quits).
 
-                    Console.WriteLine(GetCurrentTime() + "Successfully Injected: " + Library_Directories[x]);
+                    Console.WriteLine(GetCurrentTime() + "Successfully Injected: " + Library_Directories[x] + "| Sleeping 100ms");
+                    Thread.Sleep(100);
                 }
             }
         }

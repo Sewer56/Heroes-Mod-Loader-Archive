@@ -195,7 +195,7 @@ namespace HeroesModLoaderConfig
         private void TinyUI_ComboBoxSmall_CurrentController_SelectedIndexChanged(object sender, EventArgs e)
         {
             try { Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Load_Controller_Configuration(); } catch { } // Exception FirstTimeShownException
-            
+
             // Save current controller.
             Program.Controller_Handle.PlayerControllers[Current_Controller_ID].Save_Controller_Configuration();
 
@@ -260,6 +260,7 @@ namespace HeroesModLoaderConfig
         {
             RefreshControllerThread.Abort();
             // Save current controller.
+
             try { Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Save_Controller_Configuration(); } catch { }
         }
 
@@ -299,7 +300,7 @@ namespace HeroesModLoaderConfig
             }
 
             /// Select first item if available.
-            if (TinyUI_ComboBoxSmall_CurrentController.Items.Count > 0) { TinyUI_ComboBoxSmall_CurrentController.SelectedIndex = 0; try { Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Load_Controller_Configuration(); Load_Controller_Settings_Into_Control_Text(); } catch { } }
+            if (TinyUI_ComboBoxSmall_CurrentController.Items.Count > 0) { TinyUI_ComboBoxSmall_CurrentController.SelectedIndex = 0; Current_Controller_ID = TinyUI_ComboBoxSmall_CurrentController.SelectedIndex; try { Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Load_Controller_Configuration(); Load_Controller_Settings_Into_Control_Text(); } catch { } }
         }
     }
 }
