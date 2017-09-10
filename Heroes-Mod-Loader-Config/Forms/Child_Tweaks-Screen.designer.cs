@@ -218,8 +218,8 @@
             "Japanese",
             "English",
             "French",
-            "German",
             "Spanish",
+            "German",
             "Italian",
             "Korean"});
             this.TinyUI_ComboBoxSmall_Language.LeftBorderColourX = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
