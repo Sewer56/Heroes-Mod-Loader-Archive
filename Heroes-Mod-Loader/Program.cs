@@ -81,14 +81,12 @@ namespace HeroesInjectionTest
             Heroes_Start_Info.WorkingDirectory = Path.GetDirectoryName(Executable_Path); // Set Working Directory for TSonic_Win.exe
             Heroes_Start_Info.FileName = Executable_Path;
             SonicHeroesEXE = Process.Start(Heroes_Start_Info);
-            SonicHeroesEXE.SuspendProcess(); // Suspend the game.
             SonicHeroesEXE.EnableRaisingEvents = true; // Allow events to be raised.
             SonicHeroesEXE.Exited += Shutdown; // Shutdown with the game.
 
             // Time for DLL injection, let's do it one by one ;).
             Commit_DLL_Injections(); 
 
-            SonicHeroesEXE.ResumeProcess(); // Resume the game.
             Console.WriteLine(GetCurrentTime() + "All Systems Operational! | Loading Success!");
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(Shutdown); // On process exit, run one last thing :)
             Console.CancelKeyPress += (sender, eArgs) =>  { Console_Quit_Event.Set();  eArgs.Cancel = true; };
@@ -115,13 +113,11 @@ namespace HeroesInjectionTest
                     // In order to get function address we must load library in our process and extract it as needed, GetLibraryAddress handles that.
                     SonicHeroesEXE.LoadLibrary(DLL_Path); // Load the library into the process!
                     IntPtr LibraryAddress = GetLibraryAddress(DLL_Path); // Get the library function address.
-
-                    SonicHeroesEXE.ResumeProcess();
                     SonicHeroesEXE.CallLibrary_Async(LibraryAddress, IntPtr.Zero); // Say hello to the library!
-                    SonicHeroesEXE.SuspendProcess();
+
                     ModuleAddressesEXE.Add(LibraryAddress); // Add new module address to list of addresses (we can unload it when the game/loader quits).
 
-                    Console.WriteLine(GetCurrentTime() + "Successfully Injected: " + Library_Directories[x] + "| Sleeping 100ms");
+                    Console.WriteLine(GetCurrentTime() + "Successfully Injected: " + Library_Directories[x] + " | Sleeping 100ms");
                     Thread.Sleep(100);
                 }
             }
