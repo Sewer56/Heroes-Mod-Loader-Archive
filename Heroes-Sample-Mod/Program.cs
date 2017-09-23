@@ -121,7 +121,7 @@ namespace TestLibrary
                 { Sonic_Heroes_Process.WriteMemory((IntPtr)SonicHeroes_Functions.Controller_Polling_Functions.Variable_Controller_Left_Stick_Y, BitConverter.GetBytes(Stick_Y)); }
                 else { Sonic_Heroes_Process.WriteMemory((IntPtr)SonicHeroes_Functions.Controller_Polling_Functions.Variable_Controller_Left_Stick_Y, BitConverter.GetBytes(0.000F)); }
 
-                if (Right_Stick_X > Controller_Deadzones.Deadzone_Right_Stick_X || Stick_X < -(Controller_Deadzones.Deadzone_Left_Stick_X * -1.0F))
+                if (Right_Stick_X > Controller_Deadzones.Deadzone_Right_Stick_X || Stick_X < (Controller_Deadzones.Deadzone_Right_Stick_X * -1.0F))
                 { Sonic_Heroes_Process.WriteMemory((IntPtr)SonicHeroes_Functions.Controller_Polling_Functions.Variable_Controller_Right_Stick_X, BitConverter.GetBytes(Right_Stick_X)); }
                 else { Sonic_Heroes_Process.WriteMemory((IntPtr)SonicHeroes_Functions.Controller_Polling_Functions.Variable_Controller_Right_Stick_X, BitConverter.GetBytes(0.000F)); }
 
@@ -145,7 +145,24 @@ namespace TestLibrary
                 Sonic_Heroes_Process.WriteMemory((IntPtr)SonicHeroes_Functions.Controller_Polling_Functions.Variable_Controller_Buttons_Flags_II + 0x04, new byte[1] { (byte)(0xFF - (byte)Buttons_Flags_II) });
 
             }
-            catch { }
+            catch
+            {
+                // Support Hotplugging Controller 1!
+                byte[] Response = Sonic_Heroes_Networking_Client.SendData_Alternate(Message_Type.Client_Call_Send_Message, Encoding.ASCII.GetBytes(Mod_Name + " | Controller Disconnected, Polling for Controller!"), true);
+                Thread Controller_Poll_Thread = new Thread
+                (
+                    () =>
+                    {
+                        do
+                        {
+                            SonicHeroes_Joystick_Manager = new SonicHeroes.Controller.DirectInput_Joystick_Manager();
+                            Thread.Sleep(1500);
+                        }
+                        while (SonicHeroes_Joystick_Manager.PlayerControllers.Count < 1);
+                    }
+                );
+                Controller_Poll_Thread.Start();
+            }
             //Sonic_Heroes_Process.WriteMemory((IntPtr)SonicHeroes_Functions.Controller_Polling_Functions.Variable_Controller_Left_Trigger_Pressure, BitConverter.GetBytes(LT_Pressure_Byte));
             //Sonic_Heroes_Process.WriteMemory((IntPtr)SonicHeroes_Functions.Controller_Polling_Functions.Variable_Controller_Left_Trigger_Pressure_II, BitConverter.GetBytes(LT_Pressure_Byte));
             //Sonic_Heroes_Process.WriteMemory((IntPtr)SonicHeroes_Functions.Controller_Polling_Functions.Variable_Controller_Right_Trigger_Pressure, BitConverter.GetBytes(RT_Pressure_Byte));
