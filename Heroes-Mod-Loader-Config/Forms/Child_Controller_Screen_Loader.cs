@@ -176,18 +176,16 @@ namespace HeroesModLoaderConfig
             Change_Message_Button.Text = "Null";
         }
 
-
         /// 
         /// Assign Axis
         /// 
-        private void Btn_Left_Trigger_Click(object sender, EventArgs e) { Button_GetControllerAxisInput(Btn_Left_Trigger, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Z); }
-        private void Btn_Right_Trigger_Click(object sender, EventArgs e) { Button_GetControllerAxisInput(Btn_Right_Trigger, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Rotation_Z); }
+        private void Btn_Left_Trigger_Click(object sender, EventArgs e) { if (Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Information.Type != DeviceType.Keyboard) Button_GetControllerAxisInput(Btn_Left_Trigger, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Z); }
+        private void Btn_Right_Trigger_Click(object sender, EventArgs e) { if (Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Information.Type != DeviceType.Keyboard) Button_GetControllerAxisInput(Btn_Right_Trigger, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Rotation_Z); }
 
-        private void Btn_Left_Stick_Vertical_Click(object sender, EventArgs e) { Button_GetControllerAxisInput(Btn_Left_Stick_Vertical, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Y); }
-        private void Btn_Left_Stick_Horizontal_Click(object sender, EventArgs e) { Button_GetControllerAxisInput(Btn_Left_Stick_Horizontal, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.X); }
-        private void Btn_Right_Stick_Vertical_Click(object sender, EventArgs e) { Button_GetControllerAxisInput(Btn_Right_Stick_Vertical, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Rotation_Y); }
-        private void Btn_Right_Stick_Horizontal_Click(object sender, EventArgs e) { Button_GetControllerAxisInput(Btn_Right_Stick_Horizontal, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Rotation_X); }
-
+        private void Btn_Left_Stick_Vertical_Click(object sender, EventArgs e) { if (Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Information.Type != DeviceType.Keyboard) Button_GetControllerAxisInput(Btn_Left_Stick_Vertical, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Y); }
+        private void Btn_Left_Stick_Horizontal_Click(object sender, EventArgs e) { if (Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Information.Type != DeviceType.Keyboard) Button_GetControllerAxisInput(Btn_Left_Stick_Horizontal, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.X); }
+        private void Btn_Right_Stick_Vertical_Click(object sender, EventArgs e) { if (Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Information.Type != DeviceType.Keyboard) Button_GetControllerAxisInput(Btn_Right_Stick_Vertical, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Rotation_Y); }
+        private void Btn_Right_Stick_Horizontal_Click(object sender, EventArgs e) { if (Program.Controller_Handle.PlayerControllers[TinyUI_ComboBoxSmall_CurrentController.SelectedIndex].Information.Type != DeviceType.Keyboard) Button_GetControllerAxisInput(Btn_Right_Stick_Horizontal, 10, SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic.Rotation_X); }
 
         /// 
         /// Switch Current Controller To Read
@@ -224,31 +222,44 @@ namespace HeroesModLoaderConfig
             Btn_Left_Button.Text = "Btn " + CurrentGamepad.Button_Mappings.Button_L1;
             Btn_Right_Button.Text = "Btn " + CurrentGamepad.Button_Mappings.Button_R1;
 
-            // For some reason directly assigning .Text does not work, need to export to a temporary string.
-            string Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.LeftStick_X);
-            Btn_Left_Stick_Horizontal.OwnerDrawText = Temp;
-            
-            Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.LeftStick_Y);
-            Btn_Left_Stick_Vertical.OwnerDrawText = Temp;
-            
-            Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.RightStick_X);
-            Btn_Right_Stick_Horizontal.OwnerDrawText = Temp; 
+            if (CurrentGamepad.Information.Type == DeviceType.Keyboard)
+            {
+                Btn_Left_Stick_Horizontal.OwnerDrawText = "N/A";
+                Btn_Left_Stick_Vertical.OwnerDrawText = "N/A";
+                Btn_Right_Stick_Horizontal.OwnerDrawText = "N/A";
+                Btn_Left_Trigger.OwnerDrawText = "N/A";
+                Btn_Right_Trigger.OwnerDrawText = "N/A";
+                Btn_Right_Stick_Vertical.OwnerDrawText = "N/A";
+            }
+            else
+            {
+                // For some reason directly assigning .Text does not work, need to export to a temporary string.
+                string Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.LeftStick_X);
+                Btn_Left_Stick_Horizontal.OwnerDrawText = Temp;
 
-            Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.RightStick_Y);
-            Btn_Right_Stick_Vertical.OwnerDrawText = Temp;
+                Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.LeftStick_Y);
+                Btn_Left_Stick_Vertical.OwnerDrawText = Temp;
 
-            Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.LeftTrigger_Pressure);
-            Btn_Left_Trigger.OwnerDrawText = Temp;
+                Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.RightStick_X);
+                Btn_Right_Stick_Horizontal.OwnerDrawText = Temp;
 
-            Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.RightTrigger_Pressure);
-            Btn_Right_Trigger.OwnerDrawText = Temp;
+                Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.RightStick_Y);
+                Btn_Right_Stick_Vertical.OwnerDrawText = Temp;
 
-            if (CurrentGamepad.Axis_Mappings.LeftStick_X_IsReversed) { Btn_Left_Stick_Horizontal.OwnerDrawText += "+"; } else { Btn_Left_Stick_Horizontal.OwnerDrawText += "-"; }
-            if (CurrentGamepad.Axis_Mappings.LeftStick_Y_IsReversed) { Btn_Left_Stick_Vertical.OwnerDrawText += "+"; } else { Btn_Left_Stick_Vertical.OwnerDrawText += "-"; }
-            if (CurrentGamepad.Axis_Mappings.RightStick_X_IsReversed) { Btn_Right_Stick_Horizontal.OwnerDrawText += "+"; } else { Btn_Right_Stick_Horizontal.OwnerDrawText += "-"; }
-            if (CurrentGamepad.Axis_Mappings.RightStick_Y_IsReversed) { Btn_Right_Stick_Vertical.OwnerDrawText += "+"; } else { Btn_Right_Stick_Vertical.OwnerDrawText += "-"; }
-            if (CurrentGamepad.Axis_Mappings.LeftTrigger_Pressure_IsReversed) { Btn_Left_Trigger.OwnerDrawText += "+"; } else { Btn_Left_Trigger.OwnerDrawText += "-"; }
-            if (CurrentGamepad.Axis_Mappings.RightTrigger_Pressure_IsReversed) { Btn_Right_Trigger.OwnerDrawText += "+"; } else { Btn_Right_Trigger.OwnerDrawText += "-"; }
+                Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.LeftTrigger_Pressure);
+                Btn_Left_Trigger.OwnerDrawText = Temp;
+
+                Temp = Enum.GetName(typeof(SonicHeroes.Controller.Sonic_Heroes_Joystick.Controller_Axis_Generic), CurrentGamepad.Axis_Mappings.RightTrigger_Pressure);
+                Btn_Right_Trigger.OwnerDrawText = Temp;
+
+                if (CurrentGamepad.Axis_Mappings.LeftStick_X_IsReversed) { Btn_Left_Stick_Horizontal.OwnerDrawText += "+"; } else { Btn_Left_Stick_Horizontal.OwnerDrawText += "-"; }
+                if (CurrentGamepad.Axis_Mappings.LeftStick_Y_IsReversed) { Btn_Left_Stick_Vertical.OwnerDrawText += "+"; } else { Btn_Left_Stick_Vertical.OwnerDrawText += "-"; }
+                if (CurrentGamepad.Axis_Mappings.RightStick_X_IsReversed) { Btn_Right_Stick_Horizontal.OwnerDrawText += "+"; } else { Btn_Right_Stick_Horizontal.OwnerDrawText += "-"; }
+                if (CurrentGamepad.Axis_Mappings.RightStick_Y_IsReversed) { Btn_Right_Stick_Vertical.OwnerDrawText += "+"; } else { Btn_Right_Stick_Vertical.OwnerDrawText += "-"; }
+                if (CurrentGamepad.Axis_Mappings.LeftTrigger_Pressure_IsReversed) { Btn_Left_Trigger.OwnerDrawText += "+"; } else { Btn_Left_Trigger.OwnerDrawText += "-"; }
+                if (CurrentGamepad.Axis_Mappings.RightTrigger_Pressure_IsReversed) { Btn_Right_Trigger.OwnerDrawText += "+"; } else { Btn_Right_Trigger.OwnerDrawText += "-"; }
+            }
+
         }
 
         /// <summary>
