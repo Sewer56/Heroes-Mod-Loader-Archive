@@ -35,8 +35,8 @@ namespace HeroesModLoaderConfig
         /// <param name="e"></param>
         private void MainScreen_Shown(object sender, EventArgs e)
         {
-            int Width = BitConverter.ToInt32(Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_1280_1024);
-            int Height = BitConverter.ToInt32(Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_1280_1024);
+            int Width = BitConverter.ToInt32(Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_640_480);
+            int Height = BitConverter.ToInt32(Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_640_480);
             TinyUI_TxtBoxSmaller_ResolutionWidth.Text = Width + "x" + Height;
             TinyUI_ComboBoxSmall_AnisotropicFilter.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.AnisotropicFiltering;
             TinyUI_ComboBoxSmall_FogEmulation.SelectedIndex = Program.Sonic_Heroes_Specific_Stuff.ConfigFile.FogEmulation;
@@ -75,10 +75,13 @@ namespace HeroesModLoaderConfig
             {
                 int Width = Convert.ToInt32(TinyUI_TxtBoxSmaller_ResolutionWidth.Text.Substring(0, TinyUI_TxtBoxSmaller_ResolutionWidth.Text.IndexOf("x")));
                 int Height = Convert.ToInt32(TinyUI_TxtBoxSmaller_ResolutionWidth.Text.Substring(TinyUI_TxtBoxSmaller_ResolutionWidth.Text.IndexOf("x") + 1));
-                Buffer.BlockCopy(BitConverter.GetBytes(Width), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_1280_1024, 4);
-                Buffer.BlockCopy(BitConverter.GetBytes(Width), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_FullScreen_1280_1024, 4);
-                Buffer.BlockCopy(BitConverter.GetBytes(Height), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_1280_1024, 4);
-                Buffer.BlockCopy(BitConverter.GetBytes(Height), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_FullScreen_1280_1024, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(Width), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_640_480, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(Width), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Width_StockLauncher_FullScreen_640_480, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(32), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.ColourDepth_StockLauncher_640_480, 4);
+
+                Buffer.BlockCopy(BitConverter.GetBytes(Height), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_640_480, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(Height), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.Height_StockLauncher_FullScreen_640_480, 4);
+                Buffer.BlockCopy(BitConverter.GetBytes(32), 0, Program.Sonic_Heroes_Specific_Stuff.SonicHeroesExecutable, (int)SonicHeroesVariables.Launcher_Addresses.ColourDepth_StockLauncher_FullScreen_640_480, 4);
             }
             catch { MessageBox.Show("Invalid Resolution! It has been reset to 1920x1080."); TinyUI_TxtBoxSmaller_ResolutionWidth.Text = "1920x1080"; }
         }
