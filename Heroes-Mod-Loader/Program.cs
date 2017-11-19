@@ -13,6 +13,7 @@ using SonicHeroes.Networking;
 using System.Linq;
 using System.Windows.Forms;
 using static SonicHeroes.Controller.Sonic_Heroes_Joystick;
+using Binarysharp.Assemblers.Fasm;
 
 namespace HeroesInjectionTest
 {
@@ -280,6 +281,26 @@ namespace HeroesInjectionTest
                 case Client_Functions.Message_Type.Client_Call_Check_Address_Hook_State:
                     Subscribe_Hook_Handler(SonicHeroes.Misc.SonicHeroes_Miscallenous.Get_Byte_Range_From_Array(Data, Data.Length - 1, 1), SocketX, true);
                     break;
+                case Client_Functions.Message_Type.Client_Call_Assemble_x86_Mnemonics:
+                    Compile_X86_Mnemonics(SonicHeroes.Misc.SonicHeroes_Miscallenous.Get_Byte_Range_From_Array(Data, Data.Length - 1, 1), SocketX);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Makes use of FASM.NET in order to compile the supplied mnemonics.
+        /// </summary>
+        public static void Compile_X86_Mnemonics(byte[] Mnemonics, Socket SocketX)
+        {
+            // Deserialize X86 Mnemonics
+            string[] Mnemonics_X = Client_Functions.Deserialize_x86_ASM_Mnemonics(Mnemonics);
+            try
+            {
+                SocketX.Send(FasmNet.Assemble(Mnemonics_X)); // Try sending assembled data.
+            }
+            catch
+            {
+                SocketX.Send(new byte[1] { (byte)0x90 }); // If assembly was unsuccessful, reply with NOP 
             }
         }
 
