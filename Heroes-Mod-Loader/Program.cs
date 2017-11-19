@@ -302,9 +302,19 @@ namespace HeroesInjectionTest
                     break;
                 }
             }
-            if (Check_Only == false) { Hook_Handler_List.Add(Hook_Handler); Console.WriteLine(GetCurrentTime() + "Function Subscribed!"); }
-            if (Is_Already_Hooked) { SocketX.Send(new byte[1] { (byte)Client_Functions.Message_Type.Reply_Function_Already_Hooked }); }
-            else { SocketX.Send(new byte[1] { (byte)Client_Functions.Message_Type.Reply_Okay }); }
+            if (Check_Only == false)
+            {
+                Hook_Handler_List.Add(Hook_Handler); Console.WriteLine(GetCurrentTime() + "Function Subscribed!");
+            }
+
+            if (Is_Already_Hooked)
+            {
+                SocketX.Send(new byte[1] { (byte)Client_Functions.Message_Type.Reply_Function_Already_Hooked });
+            }
+            else
+            {
+                SocketX.Send(new byte[1] { (byte)Client_Functions.Message_Type.Reply_Okay });
+            }
         }
 
         /// <summary>
