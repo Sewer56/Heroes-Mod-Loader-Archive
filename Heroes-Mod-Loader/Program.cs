@@ -58,7 +58,28 @@ namespace HeroesInjectionTest
             ConsoleX_WriteLine_Center("-------------------------");
             ConsoleX_WriteLine_Center("Heroes Nemesis Centauri");
             ConsoleX_WriteLine_Center("-------------------------");
-            ConsoleX_WriteLine_Center("α version\n");
+            ConsoleX_WriteLine_Center("β version\n");
+            ConsoleX_WriteLine_Center("SHC2017 Edition");
+            ConsoleX_WriteLine_Center("\n");
+
+            ConsoleX_WriteLine_Center("Having Issues? Try one of the following...");
+            ConsoleX_WriteLine_Center("Running the Mod Loader as Administrator");
+            ConsoleX_WriteLine_Center("Checking if DLLs are allowed to Run | Mod-Loader-Libraries/<DLL-File> => Right Click, Properties, Unblock");
+            ConsoleX_WriteLine_Center("Consider any of Mod DLLs too | Mod-Loader-Mods/<Mod>/<DLL-File> => Right Click, Properties, Unblock");
+            ConsoleX_WriteLine_Center("\n");
+            ConsoleX_WriteLine_Center("Please contact me if you are stuck: Public Discord link in Configurator.");
+            ConsoleX_WriteLine_Center("\n");
+
+            ConsoleX_WriteLine_Center("Current Controller Order:");
+            for (int x = 0; x < Joystick_Manager.PlayerControllers.Count; x++)
+            {
+                ConsoleX_WriteLine_Center("[" + x + "]"+ Joystick_Manager.PlayerControllers[x].Information.ProductName + "-" + Joystick_Manager.PlayerControllers[x].Information.ProductGuid);
+            }
+            ConsoleX_WriteLine_Center("\n");
+            ConsoleX_WriteLine_Center("Unless overwritten on a per-mod basis your mods will see the order as this.");
+            ConsoleX_WriteLine_Center("If this is undesiable, consider changing Controller_ID field for each");
+            ConsoleX_WriteLine_Center("device in Mod-Loader-Config/ (lower = higher priority)");
+            ConsoleX_WriteLine_Center("\n");
 
             Setup_Server(); // Starts up the Mod Loader Server.
             Setup_Directories(); // Sets up the directories to be used by the mod loader.
@@ -180,6 +201,10 @@ namespace HeroesInjectionTest
             Executable_Path = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"Mod-Loader-Config\Executable_Path.txt"); // Main directory for Sonic Heroes
             if (Executable_Path == "null") { MessageBox.Show("The directories containing the game and the game data are not set, please run the configuration tool."); Environment.Exit(0); }
             if (Root_Directory == "null") { MessageBox.Show("The directories containing the game and the game data are not set, please run the configuration tool."); Environment.Exit(0); }
+
+            // Remove Handles
+            if (File.Exists("Controller_Acquire.txt")) { File.Delete("Controller_Acquire.txt"); }
+            if (File.Exists(Path.GetDirectoryName(Executable_Path) + "Controller_Acquire.txt")) { File.Delete(Path.GetDirectoryName(Executable_Path) + "Controller_Acquire.txt"); }
         }
 
         // Starts the local mod loader server.
