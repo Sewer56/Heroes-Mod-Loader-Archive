@@ -51,7 +51,7 @@ namespace HeroesModLoaderConfig
         [STAThread]
         static void Main()
         {
-            Application.SetCompatibleTextRenderingDefault(false); // Windows likes to mess with application styling :/
+            //Application.SetCompatibleTextRenderingDefault(false); // Windows likes to mess with application styling :/
             Mod_Loader_Directory = AppDomain.CurrentDomain.BaseDirectory; // The directory containing the mod loader itself.
 
             // Set up Mod Loader for first time use if necessary.
@@ -89,7 +89,7 @@ namespace HeroesModLoaderConfig
             if (Sonic_Heroes_Dialogue_Result == DialogResult.Yes) { Game_Is_Sonic_Heroes = true; } else { Game_Is_Sonic_Heroes = false; }
             
             // Set Executable Path
-            MessageBox.Show("Please navigate to and select your game's executable you wish to use the Mod Loader with.\n\ne.g. `D:/Projects/Heroes_HAX/Sonic_Heroes/Tsonic_win.exe`");
+            MessageBox.Show("Please navigate to and select your game's executable you wish to use the Mod Loader with.\n\ne.g. `D:/Projects/Heroes_HAX/Sonic_Heroes/Tsonic_win.exe`\nNote: Next window after may sometimes appear under other windows.");
             System.Windows.Forms.OpenFileDialog SonicHeroes_Executable_Dialog = new OpenFileDialog();
             SonicHeroes_Executable_Dialog.Title = "Please set path to game's main executable.";
             SonicHeroes_Executable_Dialog.Filter = "Executable Files|*.exe";
