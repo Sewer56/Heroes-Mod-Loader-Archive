@@ -36,6 +36,7 @@ namespace HeroesInjectionTest
         public static string Mod_Loader_Backup_Directory; // The directory of backup game files.
         public static List<string> SonicHeroes_Newly_Added_Files = new List<string>(); // New Files Added by the Mod Loader.
         public static string[] Library_Directories; // Stores an array of directories of currently loaded mods.
+        public static FileUnblocker fileUnblocker; // Unlocks the files!
 
         ///
         /// Additional Addon Modules
@@ -64,8 +65,12 @@ namespace HeroesInjectionTest
 
             ConsoleX_WriteLine_Center("Having Issues? Try one of the following...");
             ConsoleX_WriteLine_Center("Running the Mod Loader as Administrator");
-            ConsoleX_WriteLine_Center("Checking if DLLs are allowed to Run | Mod-Loader-Libraries/<DLL-File> => Right Click, Properties, Unblock");
+
+            ConsoleX_WriteLine_Center("\n");
+            ConsoleX_WriteLine_Center("Operation not Supported?");
+            ConsoleX_WriteLine_Center("Check if DLLs are allowed to Run | Mod-Loader-Libraries/<DLL-File> => Right Click, Properties, Unblock");
             ConsoleX_WriteLine_Center("Consider any of Mod DLLs too | Mod-Loader-Mods/<Mod>/<DLL-File> => Right Click, Properties, Unblock");
+            ConsoleX_WriteLine_Center("There isn't anything I can do about this Windows quirk at this moment in time :/");
             ConsoleX_WriteLine_Center("\n");
             ConsoleX_WriteLine_Center("Please contact me if you are stuck: Public Discord link in Configurator.");
             ConsoleX_WriteLine_Center("\n");
@@ -73,17 +78,32 @@ namespace HeroesInjectionTest
             ConsoleX_WriteLine_Center("Current Controller Order:");
             for (int x = 0; x < Joystick_Manager.PlayerControllers.Count; x++)
             {
-                ConsoleX_WriteLine_Center("[" + x + "]"+ Joystick_Manager.PlayerControllers[x].Information.ProductName + "-" + Joystick_Manager.PlayerControllers[x].Information.ProductGuid);
+                ConsoleX_WriteLine_Center("[" + x + "] "+ Joystick_Manager.PlayerControllers[x].Information.ProductName + "-" + Joystick_Manager.PlayerControllers[x].Information.ProductGuid);
             }
             ConsoleX_WriteLine_Center("\n");
             ConsoleX_WriteLine_Center("Unless overwritten on a per-mod basis your mods will see the order as this.");
             ConsoleX_WriteLine_Center("If this is undesiable, consider changing Controller_ID field for each");
-            ConsoleX_WriteLine_Center("device in Mod-Loader-Config/ (lower = higher priority)");
+            ConsoleX_WriteLine_Center("device in Mod-Loader-Config/");
+            ConsoleX_WriteLine_Center("Lower number = Higher priority");
             ConsoleX_WriteLine_Center("\n");
+
+            // Show Message
+            Thread.Sleep(1000);
 
             Setup_Server(); // Starts up the Mod Loader Server.
             Setup_Directories(); // Sets up the directories to be used by the mod loader.
+            Unblock_DLLs(); // Unblock all DLLs.
             Restore_Backup_Files(); // Restores any files if present in backup folder.
+
+            // Test
+            if (!File.Exists(Mod_Loader_Directory + "\\Mod-Loader-Config\\Setup_Complete"))
+            {
+                ConsoleX_WriteLine_Center("Please run the Mod Loader Configurator First.");
+                ConsoleX_WriteLine_Center("Think that's wrong? Remove Mod-Loader-Config/Setup_Complete");
+                ConsoleX_WriteLine_Center("Press Enter to Exit.");
+                Console.ReadLine();
+                Environment.Exit(0);
+            }
 
             // Retrieve the current enabled list of mods.
             Library_Directories = File.ReadAllLines(Mod_Loader_Directory + "\\Mod-Loader-Config\\Enabled_Mods.txt");
@@ -110,6 +130,8 @@ namespace HeroesInjectionTest
             Commit_DLL_Injections(); 
 
             Console.WriteLine(GetCurrentTime() + "All Systems Operational! | Loading Success!");
+            Console.WriteLine(GetCurrentTime() + "It is not recommended that you close this window.");
+            Console.WriteLine(GetCurrentTime() + "Should you encounter any issue it is recommended that you read the log above.");
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(Shutdown); // On process exit, run one last thing :)
             Console.CancelKeyPress += (sender, eArgs) =>  { Console_Quit_Event.Set();  eArgs.Cancel = true; };
             Console_Quit_Event.WaitOne(); // Wait until user presses quit keyboard combination.
@@ -120,6 +142,18 @@ namespace HeroesInjectionTest
         ///////////////////////
         /////////////////////// MOD LOADER CORE SECTION
         ///////////////////////
+
+        static void Unblock_DLLs()
+        {
+            fileUnblocker = new FileUnblocker();
+            string[] DLLFiles = Directory.GetFiles(Mod_Loader_Directory, "*.dll", SearchOption.AllDirectories);
+            for (int x = 0; x < DLLFiles.Length; x++)
+            {
+                ConsoleX_WriteLine_Center("Auto Unlock DLL | " + DLLFiles[x].Substring(Mod_Loader_Directory.Length));
+                fileUnblocker.Unblock(DLLFiles[x]);
+            }
+        }
+        
 
         /// Handle the mod loader individual DLL injections.
         static void Commit_DLL_Injections()
@@ -203,14 +237,23 @@ namespace HeroesInjectionTest
             if (Root_Directory == "null") { MessageBox.Show("The directories containing the game and the game data are not set, please run the configuration tool."); Environment.Exit(0); }
 
             // Remove Handles
-            if (File.Exists("Controller_Acquire.txt")) { File.Delete("Controller_Acquire.txt"); }
-            if (File.Exists(Path.GetDirectoryName(Executable_Path) + "Controller_Acquire.txt")) { File.Delete(Path.GetDirectoryName(Executable_Path) + "Controller_Acquire.txt"); }
+            string potentialPath = "Controller_Acquire.txt";
+            string potentialPath2 = Path.GetDirectoryName(Executable_Path) + "\\Controller_Acquire.txt";
+            if (File.Exists(potentialPath))
+            {
+                File.Delete("Controller_Acquire.txt");
+            }
+            if (File.Exists(potentialPath2))
+            {
+                File.Delete(potentialPath2);
+            }
         }
 
         // Starts the local mod loader server.
         static void Setup_Server()
         {
             // Define a new host to which we will be sending information to.
+            ConsoleX_WriteLine_Center("Server | Starting on Port 13370!");
             Mod_Loader_Server.SetupServer(IPAddress.Loopback);
             Mod_Loader_Server.ProcessBytesMethod += ProcessData;
             ConsoleX_WriteLine_Center("Server | Running!");
@@ -458,7 +501,11 @@ namespace HeroesInjectionTest
         /// <param name="Message"></param>
         public static void ConsoleX_WriteLine_Center(string Message)
         {
-            Console.SetCursorPosition((Console.WindowWidth - Message.Length) / 2, Console.CursorTop);
+            // Get left side
+            int consolePointer = (Console.WindowWidth - Message.Length) / 2;
+            if (consolePointer < 0) { consolePointer = 0; }
+
+            Console.SetCursorPosition(consolePointer, Console.CursorTop);
             Console.WriteLine(Message);
             Console.SetCursorPosition(0, Console.CursorTop);
         }
