@@ -116,12 +116,12 @@ namespace TestLibrary
             public float Line_Spacing;
             public float Line_Height;
 
-            /// DIRECTX
+            /// Formats and brushes for the D2D Overlay.
             public SharpDX.DirectWrite.TextFormat Text_Font_DirectX;
             public SharpDX.Direct2D1.SolidColorBrush Drawing_Brush_DirectX;
             public SharpDX.Direct2D1.SolidColorBrush Background_Brush_DirectX;
 
-            /// public SharpDX.Mathematics.Interop.RawRectangleF Rectangle_Menu_DirectX;
+            /// Rectangle representing the boundaries of the D2D Overlay.
             public Rectangle Rectangle_Menu_DirectX;
 
             /// Formatted strings representing locations will be held here.
@@ -223,8 +223,14 @@ namespace TestLibrary
             // Set-up UI Scaling such as that the interface scales alongside the resolution used.
             float Standard_Resolution_Height = 720; // I write and test my stuff on 1280 x 720.
             int Standard_Font_Size = 14; // Standard font size to be used for display.
+
+            // Calculate DPI Scale.
             float Window_Scale_Overlay = (float)Sonic_Heroes_Overlay.OverlayForm.Height / (float)Standard_Resolution_Height; // Get scaling factor.
+
+            // Calculate Scaled Font Size
             Standard_Font_Size = (int)(Standard_Font_Size * Window_Scale_Overlay); // Adjust Font Size.
+
+            // Print Scale
             Sonic_Heroes_Networking_Client.SendData_Alternate(Message_Type.Client_Call_Send_Message, Encoding.ASCII.GetBytes(Mod_Name + " | UI Scaling Scale: " + Window_Scale_Overlay), false);
 
             // Set Brushes and Fonts.
@@ -293,8 +299,10 @@ namespace TestLibrary
             // Define Background Rectangle
             Drawing_Properties.Rectangle_Menu_DirectX = new Rectangle(Rectangle_Location.X, Rectangle_Location.Y, Rectangle_Size.Width, Rectangle_Size.Height);
 
+            // Print D2D overlay stats.
             Sonic_Heroes_Networking_Client.SendData_Alternate(Message_Type.Client_Call_Send_Message, Encoding.ASCII.GetBytes(Mod_Name + " | Overlay HxW | " + Sonic_Heroes_Overlay.OverlayForm.Height + "x" + Sonic_Heroes_Overlay.OverlayForm.Width), true);
 
+            // Done.
             Drawing_Properties_Set = true;
         }
 
