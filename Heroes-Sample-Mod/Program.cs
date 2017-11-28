@@ -117,13 +117,16 @@ namespace TestLibrary
                 float Y_Delta_Position_Distance_Scaled = (Y_Delta_Position) * Distance_Speed_Increase;
                 float Z_Delta_Position_Distance_Scaled = (Z_Delta_Position) * Distance_Speed_Increase;
 
+                // Calculations necessary to obtain unit vector.
                 float Length_Squared = (X_Delta_Position * X_Delta_Position) + (Y_Delta_Position * Y_Delta_Position) + (Z_Delta_Position * Z_Delta_Position);
-                float Vector_Magnitude = Fast_InvSqrt(Length_Squared);
+                float Inverse_SquareRoot = Fast_InvSqrt(Length_Squared);
 
-                float X_Normal_Vector_Scaled = (X_Delta_Position * Vector_Magnitude) * Ring_Base_Speed; // Constant Rate/Speed towards player in direction
-                float Y_Normal_Vector_Scaled = (Y_Delta_Position * Vector_Magnitude) * Ring_Base_Speed; // Constant Rate/Speed towards player in direction
-                float Z_Normal_Vector_Scaled = (Z_Delta_Position * Vector_Magnitude) * Ring_Base_Speed; // Constant Rate/Speed towards player in direction
+                // Scale to unit vector and scale again for speed of attraction.
+                float X_Normal_Vector_Scaled = (X_Delta_Position * Inverse_SquareRoot) * Ring_Base_Speed; // Constant Rate/Speed towards player in direction
+                float Y_Normal_Vector_Scaled = (Y_Delta_Position * Inverse_SquareRoot) * Ring_Base_Speed; // Constant Rate/Speed towards player in direction
+                float Z_Normal_Vector_Scaled = (Z_Delta_Position * Inverse_SquareRoot) * Ring_Base_Speed; // Constant Rate/Speed towards player in direction
 
+                // Write to memory.
                 Sonic_Heroes_Process.WriteMemory((IntPtr)(Active_Ring_Addresses[x] + (int)SonicHeroesVariables.Game_Objects_CurrentlyLoaded_Table_Rings_Offsets.X_Position), BitConverter.GetBytes(X_Position + X_Normal_Vector_Scaled + X_Delta_Position_Distance_Scaled));
                 Sonic_Heroes_Process.WriteMemory((IntPtr)(Active_Ring_Addresses[x] + (int)SonicHeroesVariables.Game_Objects_CurrentlyLoaded_Table_Rings_Offsets.Y_Position), BitConverter.GetBytes(Y_Position + Y_Normal_Vector_Scaled + Y_Delta_Position_Distance_Scaled));
                 Sonic_Heroes_Process.WriteMemory((IntPtr)(Active_Ring_Addresses[x] + (int)SonicHeroesVariables.Game_Objects_CurrentlyLoaded_Table_Rings_Offsets.Z_Position), BitConverter.GetBytes(Z_Position + Z_Normal_Vector_Scaled + Z_Delta_Position_Distance_Scaled));
