@@ -8,7 +8,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>HeroesInjectionTest</RootNamespace>
     <AssemblyName>HeroesModLoader</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>D:\Desktop\NewBuild\Heroes Mod Loader\</OutputPath>
+    <OutputPath>..\..\Mod-Loader-NET45\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
@@ -27,7 +27,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>D:\Desktop\Heroes Mod Loader\Heroes Mod Loader\</OutputPath>
+    <OutputPath>..\..\Mod-Loader-NET45\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,6 +35,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>HeroesInjectionTest.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fasm.NET, Version=1.0.4939.27955, Culture=neutral, processorArchitecture=x86">
@@ -55,6 +58,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -85,14 +91,23 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Mod-Loader-Backup\" />
     <Folder Include="Mod-Loader-Config\" />
-    <Folder Include="Mod-Loader-Libraries\" />
-    <Folder Include="Mod-Loader-Mods\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mod-Loader-Backup\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mod-Loader-Libraries\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mod-Loader-Mods\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>move /Y "$(TargetDir)SharpDX*" "$(TargetDir)Mod-Loader-Libraries\"
+move /Y "$(TargetDir)System.ValueTuple*" "$(TargetDir)Mod-Loader-Libraries\"
+move /Y "$(TargetDir)Fasm.NET*" "$(TargetDir)Mod-Loader-Libraries\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
