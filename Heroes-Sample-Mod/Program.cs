@@ -20,29 +20,60 @@ namespace Heroes_Sample_Mod
         ////////////////////////////////
         /// Mod loader DLL Skeleton Code
         ////////////////////////////////
-        const string Mod_Name = "Riders Test Mod"; // Set name of project.
-        public static SonicHeroes.Networking.WebSocket_Client Sonic_Heroes_Networking_Client = new SonicHeroes.Networking.WebSocket_Client(); // Set up client for networking, this client communicates with the server to call methods under subscribe hook
-        public static Process Sonic_Heroes_Process; // Get Sonic Heroes Process
 
         /// <summary>
-        /// Main Entry Method
+        /// Defines the name of the mod loader DLL Project.
+        /// </summary>
+        const string MOD_NAME = "Riders Foot Race";
+
+        /// <summary>
+        /// Stores the client of the Mod Loader Server. Can be used for communication with the external local server.
+        /// </summary>
+        public static WebSocket_Client serverClient = new WebSocket_Client();
+
+        /// <summary>
+        /// The process of the current running game which you are toying around with. Allows for manipulation in multiple ways, e.g. read/write memory.
+        /// </summary>
+        public static Process gameProcess;
+
+        /// <summary>
+        /// Initializes the Mod Loader DLL Mod.
+        /// </summary>
+        static void Initialize()
+        {
+            ////////////// MOD LOADER DLL SKELETON CODE ///////////////////////////////////////////////////////////////////////////////////////////////////
+            AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(SonicHeroes.Misc.SonicHeroes_Miscallenous.CurrentDomain_SetAssemblyResolve);
+            serverClient.SetupClient(IPAddress.Loopback); /// Set up networking with the Mod Loader.
+            gameProcess = Process.GetCurrentProcess(); /// We will use this for reading and writing memory.
+            Print("Setup... OK!"); /// Say to the Mod Loader that we have loaded so the end user can know.
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        }
+
+        /// <summary>
+        /// Prints a message to the mod loader server console
+        /// </summary>
+        /// <param name="message"></param>
+        static void Print(string message)
+        {
+            // Send Message as ASCII to the loader server.
+            serverClient.SendData_Alternate(Message_Type.Client_Call_Send_Message, Encoding.ASCII.GetBytes(MOD_NAME + " | " + message), true); /// Say to the Mod Loader that we have loaded so the end user can know.
+        }
+
+        /// <summary>
+        /// Main Entry Method for the Program.
         /// </summary>
         [DllExport]
         static void Main()
         {
             try
             {
-                ////////////// MOD LOADER DLL SKELETON CODE ///////////////////////////////////////////////////////////////////////////////////////////////////
-                AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(SonicHeroes.Misc.SonicHeroes_Miscallenous.CurrentDomain_SetAssemblyResolve);
-                Sonic_Heroes_Networking_Client.SetupClient(IPAddress.Loopback); /// Set up networking with the Sonic Heroes Mod Loader.
-                byte[] Response = Sonic_Heroes_Networking_Client.SendData_Alternate(Message_Type.Client_Call_Send_Message, Encoding.ASCII.GetBytes(Mod_Name + " | Loading... OK!"), true); /// Say to the Mod Loader that we have loaded so the end user can know.
-                Sonic_Heroes_Process = Process.GetCurrentProcess(); /// We will use this for reading and writing memory.
-                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                // Initialize the Loader.
+                Initialize();
 
-                // Remove cap to speed when boosting.
-                Sonic_Heroes_Process.WriteMemory((IntPtr)0x4BD1E1, new byte[] { 0x90, 0x90 });
+                // Do anything you want to do at startup (DLL Injection Point Here)
+                gameProcess.WriteMemory((IntPtr)0x4BD1E1, new byte[] { 0x90, 0x90 });
             }
-            catch (Exception Ex) { Sonic_Heroes_Networking_Client.SendData_Alternate(Message_Type.Client_Call_Send_Message, Encoding.ASCII.GetBytes(Mod_Name + " Failed To Load: " + Ex.Message + " | " + Ex.StackTrace), false); }
+            catch (Exception Ex) { Print("Failed To Load: " + Ex.Message + " | " + Ex.StackTrace); }
         }
     }
 }
