@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Heroes_Sample_Mod</RootNamespace>
     <AssemblyName>main</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -32,7 +32,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Heroes Mod Loader\Mod-Loader-Mods\Boost-On-Pad\</OutputPath>
+    <OutputPath>..\..\..\Riders Mod Loader\Heroes Mod Loader\Mod-Loader-Mods\Boostpad-Tweaks\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -60,6 +60,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -69,21 +72,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="libSonicHeroesII\SonicHeroes_ASMInjections.cs" />
-    <Compile Include="libSonicHeroesII\SonicHeroes_Controller.cs" />
-    <Compile Include="libSonicHeroesII\SonicHeroes_Function_Addresses.cs" />
-    <Compile Include="libSonicHeroesII\SonicHeroes_Hooking.cs" />
-    <Compile Include="libSonicHeroesII\SonicHeroes_Miscallenous.cs" />
-    <Compile Include="libSonicHeroesII\SonicHeroes_Networking.cs" />
-    <Compile Include="libSonicHeroesII\SonicHeroes_Process.cs" />
-    <Compile Include="libSonicHeroesII\SonicHeroes_Structs.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\Hooking\Hook_ASM.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\Hooking\Hook_Base.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\Hooking\Injection.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\Overlay\External\Form_FakeTransparentOverlay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="libSonicHeroes\libSonicHeroes\Overlay\External\Form_FakeTransparentOverlay.Designer.cs">
+      <DependentUpon>Form_FakeTransparentOverlay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="libSonicHeroes\libSonicHeroes\Overlay\External\Overlay_External_Direct2D.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\SonicHeroes_ASMInjections.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\SonicHeroes_Controller.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\SonicHeroes_Function_Addresses.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\SonicHeroes_Miscallenous.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\SonicHeroes_Networking.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\SonicHeroes_Process.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\SonicHeroes_Structs.cs" />
+    <Compile Include="libSonicHeroes\libSonicHeroes\SonicHeroes_Variables.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Mod-Properties\Mod.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="libSonicHeroes\libSonicHeroes\Overlay\External\Form_FakeTransparentOverlay.resx">
+      <DependentUpon>Form_FakeTransparentOverlay.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Libraries\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="../packages/DllExport.1.5.2/tools/net.r_eg.DllExport.targets" Condition="Exists('../packages/DllExport.1.5.2/tools/net.r_eg.DllExport.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>move /Y "$(TargetDir)\Mod-Properties\*" "$(TargetDir)"
+RMDIR "$(TargetDir)\Mod-Properties"
+DEL "$(TargetDir)*.xml"
+DEL "$(TargetDir)*.config"
+DEL "$(TargetDir)*.pdb"
+move /Y "$(TargetDir)*.dll" "$(TargetDir)Libraries"
+move /Y "$(TargetDir)Libraries\main.dll" "$(TargetDir)"
+DEL "$(TargetDir)Libraries\dummy.txt"</PostBuildEvent>
+  </PropertyGroup>
 </Project>
