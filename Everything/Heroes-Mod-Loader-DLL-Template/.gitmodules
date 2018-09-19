@@ -1,0 +1,3 @@
+[submodule "Heroes-Sample-Mod/libSonicHeroes"]
+	path = Heroes-Sample-Mod/libSonicHeroes
+	url = https://github.com/sewer56lol/libSonicHeroes.git
