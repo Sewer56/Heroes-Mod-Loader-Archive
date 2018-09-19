@@ -1,0 +1,153 @@
+# Heroes Tweakbox Character Colour Configuration File
+
+# Character Entry for Amy #
+Character Name=Amy
+Jump Ball Colour | R=255
+Jump Ball Colour | G=0
+Jump Ball Colour | B=96
+Jump Ball Colour | A=255
+Tornado Colour | R=255
+Tornado Colour | G=0
+Tornado Colour | B=96
+Tornado Colour | A=254
+Trail Colour | R=127
+Trail Colour | G=0
+Trail Colour | B=48
+Trail Colour | A=255
+
+# Character Entry for Big #
+Character Name=Big
+Jump Ball Colour | R=128
+Jump Ball Colour | G=0
+Jump Ball Colour | B=255
+Jump Ball Colour | A=255
+Trail Colour | R=64
+Trail Colour | G=0
+Trail Colour | B=127
+Trail Colour | A=255
+
+# Character Entry for Charmy #
+Character Name=Charmy
+Jump Ball Colour | R=255
+Jump Ball Colour | G=0
+Jump Ball Colour | B=0
+Jump Ball Colour | A=255
+Trail Colour | R=127
+Trail Colour | G=0
+Trail Colour | B=0
+Trail Colour | A=255
+
+# Character Entry for Cream #
+Character Name=Cream
+Jump Ball Colour | R=255
+Jump Ball Colour | G=140
+Jump Ball Colour | B=96
+Jump Ball Colour | A=255
+Trail Colour | R=127
+Trail Colour | G=70
+Trail Colour | B=48
+Trail Colour | A=255
+
+# Character Entry for Espio #
+Character Name=Espio
+Jump Ball Colour | R=0
+Jump Ball Colour | G=160
+Jump Ball Colour | B=255
+Jump Ball Colour | A=255
+Tornado Colour | R=0
+Tornado Colour | G=160
+Tornado Colour | B=0
+Tornado Colour | A=254
+Trail Colour | R=0
+Trail Colour | G=80
+Trail Colour | B=127
+Trail Colour | A=255
+
+# Character Entry for Knuckles #
+Character Name=Knuckles
+Jump Ball Colour | R=240
+Jump Ball Colour | G=25
+Jump Ball Colour | B=60
+Jump Ball Colour | A=255
+Trail Colour | R=120
+Trail Colour | G=12
+Trail Colour | B=30
+Trail Colour | A=255
+
+# Character Entry for Omega #
+Character Name=Omega
+Jump Ball Colour | R=96
+Jump Ball Colour | G=0
+Jump Ball Colour | B=255
+Jump Ball Colour | A=255
+Trail Colour | R=48
+Trail Colour | G=0
+Trail Colour | B=127
+Trail Colour | A=255
+
+# Character Entry for Rouge #
+Character Name=Rouge
+Jump Ball Colour | R=255
+Jump Ball Colour | G=0
+Jump Ball Colour | B=255
+Jump Ball Colour | A=255
+Trail Colour | R=127
+Trail Colour | G=0
+Trail Colour | B=127
+Trail Colour | A=255
+
+# Character Entry for Shadow #
+Character Name=Shadow
+Jump Ball Colour | R=255
+Jump Ball Colour | G=128
+Jump Ball Colour | B=0
+Jump Ball Colour | A=255
+Tornado Colour | R=0
+Tornado Colour | G=0
+Tornado Colour | B=0
+Tornado Colour | A=254
+Trail Colour | R=127
+Trail Colour | G=64
+Trail Colour | B=0
+Trail Colour | A=255
+
+# Character Entry for Sonic #
+Character Name=Sonic
+Jump Ball Colour | R=0
+Jump Ball Colour | G=90
+Jump Ball Colour | B=170
+Jump Ball Colour | A=255
+Tornado Colour | R=0
+Tornado Colour | G=90
+Tornado Colour | B=170
+Tornado Colour | A=254
+Trail Colour | R=0
+Trail Colour | G=45
+Trail Colour | B=85
+Trail Colour | A=255
+Misc Colour | R=255
+Misc Colour | G=0
+Misc Colour | B=0
+Misc Colour | A=255
+
+# Character Entry for Tails #
+Character Name=Tails
+Jump Ball Colour | R=250
+Jump Ball Colour | G=165
+Jump Ball Colour | B=25
+Jump Ball Colour | A=255
+Trail Colour | R=125
+Trail Colour | G=82
+Trail Colour | B=12
+Trail Colour | A=255
+
+# Character Entry for Vector #
+Character Name=Vector
+Jump Ball Colour | R=0
+Jump Ball Colour | G=160
+Jump Ball Colour | B=0
+Jump Ball Colour | A=255
+Trail Colour | R=0
+Trail Colour | G=80
+Trail Colour | B=0
+Trail Colour | A=255
