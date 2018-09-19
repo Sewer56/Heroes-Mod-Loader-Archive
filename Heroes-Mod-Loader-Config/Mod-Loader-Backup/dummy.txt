@@ -1,0 +1,2 @@
+﻿This is a dummy file to force the compiler to create the directory. 
+It can be safely removed.

@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6F73D5A1-50B2-40B8-A28D-6B12018BF5AC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>HeroesModLoaderConfigurator</RootNamespace>
+    <AssemblyName>HeroesModLoader-Configurator</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Mod-Loader-NET45\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Mod-Loader-NET45\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>G:\Desktop\Heroes_Mod_Loader - SA2Test\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.4.0.1\lib\net45\SharpDX.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DirectInput, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DirectInput.4.0.1\lib\net45\SharpDX.DirectInput.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.DXGI.4.0.1\lib\net45\SharpDX.DXGI.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\libSonicHeroes\libSonicHeroes\SonicHeroes_ASMInjections.cs">
+      <Link>libSonicHeroes\SonicHeroes_ASMInjections.cs</Link>
+    </Compile>
+    <Compile Include="..\libSonicHeroes\libSonicHeroes\SonicHeroes_Controller.cs">
+      <Link>libSonicHeroes\SonicHeroes_Controller.cs</Link>
+    </Compile>
+    <Compile Include="..\libSonicHeroes\libSonicHeroes\SonicHeroes_Hooking.cs">
+      <Link>libSonicHeroes\SonicHeroes_Hooking.cs</Link>
+    </Compile>
+    <Compile Include="..\libSonicHeroes\libSonicHeroes\SonicHeroes_Miscallenous.cs">
+      <Link>libSonicHeroes\SonicHeroes_Miscallenous.cs</Link>
+    </Compile>
+    <Compile Include="..\libSonicHeroes\libSonicHeroes\SonicHeroes_Networking.cs">
+      <Link>libSonicHeroes\SonicHeroes_Networking.cs</Link>
+    </Compile>
+    <Compile Include="..\libSonicHeroes\libSonicHeroes\SonicHeroes_Process.cs">
+      <Link>libSonicHeroes\SonicHeroes_Process.cs</Link>
+    </Compile>
+    <Compile Include="..\libSonicHeroes\libSonicHeroes\SonicHeroes_Structs.cs">
+      <Link>libSonicHeroes\SonicHeroes_Structs.cs</Link>
+    </Compile>
+    <Compile Include="..\libSonicHeroes\libSonicHeroes\SonicHeroes_Variables.cs">
+      <Link>libSonicHeroes\SonicHeroes_Variables.cs</Link>
+    </Compile>
+    <Compile Include="Classes\Visual\Common Theming\Hex-WinAPI-Theming.cs" />
+    <Compile Include="Classes\Visual\Common Theming\Hex-UI-Theming.cs" />
+    <Compile Include="Classes\Visual\Common Theming\HSLColor.cs" />
+    <Compile Include="Classes\Visual\Controls\CustomNumericUpDown.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Visual\Controls\CustomComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Visual\Controls\CustomButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Visual\Controls\CustomListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Classes\Visual\Controls\CustomTextBoxV2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Classes\Visual\Controls\CustomTextBoxV2.designer.cs">
+      <DependentUpon>CustomTextBoxV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Visual\Misc\Fonts.cs" />
+    <Compile Include="Classes\Visual\Misc\MyToolStrip.cs" />
+    <EmbeddedResource Include="Forms\Child_Controller-Screen-Two.resx">
+      <DependentUpon>Child_Controller-Screen-Two.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Child_Controller-Screen-One.resx">
+      <DependentUpon>Child_Controller-Screen-One.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Child_Controller_Screen_Loader.resx">
+      <DependentUpon>Child_Controller_Screen_Loader.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Child_Tweaks-Screen-2.resx">
+      <DependentUpon>Child_Tweaks-Screen-2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Child_Tweaks-Screen.resx">
+      <DependentUpon>Child_Tweaks-Screen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Child_Main-Screen.resx">
+      <DependentUpon>Child_Main-Screen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Child_About-Screen.resx">
+      <DependentUpon>Child_About-Screen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Forms\Child_Controller-Screen-Two.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Child_Controller-Screen-Two.designer.cs">
+      <DependentUpon>Child_Controller-Screen-Two.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Child_Controller-Screen-One.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Child_Controller-Screen-One.designer.cs">
+      <DependentUpon>Child_Controller-Screen-One.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Child_Controller_Screen_Loader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Child_Controller_Screen_Loader.designer.cs">
+      <DependentUpon>Child_Controller_Screen_Loader.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Child_Tweaks-Screen-2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Child_Tweaks-Screen-2.designer.cs">
+      <DependentUpon>Child_Tweaks-Screen-2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Child_Tweaks-Screen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Child_Tweaks-Screen.designer.cs">
+      <DependentUpon>Child_Tweaks-Screen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Child_Main-Screen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Child_Main-Screen.designer.cs">
+      <DependentUpon>Child_Main-Screen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Base_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Base_Form.Designer.cs">
+      <DependentUpon>Base_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Child_Theme_Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Child_Theme_Menu.Designer.cs">
+      <DependentUpon>Child_Theme_Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Child_About-Screen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Child_About-Screen.designer.cs">
+      <DependentUpon>Child_About-Screen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sonic_Heroes_Program.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Classes\Visual\Controls\CustomTextBoxV2.resx">
+      <DependentUpon>CustomTextBoxV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Base_Form.resx">
+      <DependentUpon>Base_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Child_Theme_Menu.resx">
+      <DependentUpon>Child_Theme_Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Mod-Loader-Config\Images\Source\Close Button.psd" />
+    <None Include="Mod-Loader-Config\Images\Source\Minimize Button.psd" />
+    <None Include="Mod-Loader-Config\Images\Source\PaintBrushIcon.psd" />
+    <None Include="Mod-Loader-Config\Images\Source\Sidebar Icons.psd" />
+    <None Include="Mod-Loader-Config\Images\Source\XOSArt_Sewer56lol_ic_launcher_icon.psd" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Mod-Loader-Config\Fonts\Roboto-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Mod-Loader-Config\Fonts\Roboto-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Mod-Loader-Config\Fonts\Roboto-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Mod-Loader-Config\Fonts\Roboto-Thin.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Mod-Loader-Config\Fonts\RobotoCondensed-Bold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Mod-Loader-Config\Fonts\RobotoCondensed-BoldItalic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Mod-Loader-Config\Fonts\RobotoCondensed-Italic.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Mod-Loader-Config\Fonts\RobotoCondensed-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mod-Loader-Config\WindowName.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mod-Loader-Libraries\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mod-Loader-Mods\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Controller_LoaderStack.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Tweaks_2.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Tweaks.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Settings.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Register.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Paintbrush.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Minimize.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Main.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Login.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Controller_Port_2.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Controller_Port_1.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Close.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_About.png" />
+    <None Include="Mod-Loader-Config\Images\MainIcon.png" />
+    <None Include="Mod-Loader-Config\Images\ControllerPort1.png" />
+    <None Include="Mod-Loader-Config\Images\ControllerPort2.png" />
+    <None Include="Mod-Loader-Config\Images\GearsIcon.png" />
+    <None Include="Mod-Loader-Config\Images\GearsIcon2.png" />
+    <None Include="Mod-Loader-Config\Images\AboutIcon.png" />
+    <None Include="Mod-Loader-Config\Images\Button_Login_48x.png" />
+    <None Include="Mod-Loader-Config\Images\Button_Register_48x.png" />
+    <None Include="Mod-Loader-Config\Images\Button_ThemeMenu_48x.png" />
+    <None Include="Mod-Loader-Config\Images\Button_Welcome_48x.png" />
+    <None Include="Mod-Loader-Config\Images\CloseBtn_12x.png" />
+    <None Include="Mod-Loader-Config\Images\LauncherIcon.png" />
+    <None Include="Mod-Loader-Config\Images\MinimizeBtn_12x.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Github.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Github_Alt.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_SSRG.png" />
+    <None Include="Mod-Loader-Config\Images\Mod_Loader_Icon_Discord.png" />
+    <Content Include="Mod-Loader-Backup\dummy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Mod-Loader-Config\Fonts\LICENSE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Mod-Loader-Config\Images\square-targeting-interface-symbol2.png" />
+    <None Include="Mod-Loader-Config\Images\SettingsIcon_HalogenOS_Sewer56lol.png" />
+    <None Include="Mod-Loader-Config\Images\PaintBrushIcon_58x.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>move /Y "$(TargetDir)SharpDX*" "$(TargetDir)Mod-Loader-Libraries\"
+move /Y "$(TargetDir)System.ValueTuple*" "$(TargetDir)Mod-Loader-Libraries\"
+move /Y "$(TargetDir)Fasm.NET*" "$(TargetDir)Mod-Loader-Libraries\"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

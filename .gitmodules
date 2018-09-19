@@ -1,0 +1,3 @@
+[submodule "libSonicHeroes"]
+	path = libSonicHeroes
+	url = https://github.com/sewer56lol/libSonicHeroes
