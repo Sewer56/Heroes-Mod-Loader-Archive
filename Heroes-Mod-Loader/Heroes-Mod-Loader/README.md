@@ -1,0 +1,1 @@
+Please clone libSonicHeroes to this directory before opening solution.
